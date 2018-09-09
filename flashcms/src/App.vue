@@ -15,62 +15,37 @@
           exact
         >
           <v-list-tile-action>
-            <v-icon light v-html="item.icon"></v-icon>
+            <font-awesome-icon  size="lg" :icon="`${item.icon}`" />
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title v-text="item.title"></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
+      <v-divider></v-divider>
     </v-navigation-drawer>
-    <v-toolbar fixed app :clipped-left="clipped">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer" light></v-toolbar-side-icon>
-      <v-btn
-        icon
-        light
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        light
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>web</v-icon>
-      </v-btn>
+    <v-toolbar dark color="primary" fixed app :clipped-left="clipped">
+      <v-toolbar-side-icon dark @click.stop="drawer = !drawer" light></v-toolbar-side-icon>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        icon
-        light
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>menu</v-icon>
+      <v-btn icon>
+        <font-awesome-icon size="lg" icon="bell" />
+      </v-btn>
+      <v-btn to="/login" icon>
+        <font-awesome-icon size="lg" icon="user-circle" />
+      </v-btn>
+      <v-btn icon>
+        <font-awesome-icon size="lg" icon="sign-out-alt" />
       </v-btn>
     </v-toolbar>
     <v-content>
       <router-view></router-view>
     </v-content>
-    <v-navigation-drawer
-      temporary
-      :right="right"
-      v-model="rightDrawer"
-      fixed
-    >
-      <v-list>
-        <v-list-tile @click="right = !right">
-          <v-list-tile-action>
-            <v-icon light>compare_arrows</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
   </v-app>
 </template>
 
 <script>
+/* eslint-disable*/
   import Vue from 'vue'
   export default {
     data () {
@@ -78,16 +53,29 @@
         cordova: Vue.cordova,
         clipped: false,
         drawer: true,
-        items: [{
-          icon: 'bubble_chart',
-          title: 'Inspire'
-        }],
-        miniVariant: false,
-        right: true,
-        rightDrawer: false,
-        title: 'Vuetify.js'
-      }
-    },
+        items: [
+          {
+            icon: 'columns',
+            title: 'Dashboard',
+          }, {
+            icon: 'file',
+            title: 'Pages',
+          }, {
+            icon: 'user-circle',
+            title: 'Users',
+          }, {
+            icon: 'plug',
+            title: 'Plugins',
+          },
+         {
+            icon: 'sliders-h',
+            title: 'Settings'
+          }],
+  miniVariant: false,
+  right: true,
+  rightDrawer: false,
+  title: 'FlashCMS'
+}    },
     created () {
       var self = this
       this.cordova.on('deviceready', () => {
