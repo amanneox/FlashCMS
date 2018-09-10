@@ -15,7 +15,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import VeeValidate from 'vee-validate'
 
+
+Vue.use(VeeValidate)
 library.add(fas.faCoffee,fas.faShoppingCart,fas.faUserCircle,fas.faCompass,fas.faBoxOpen,fas.faQuestion,fas.faMobileAlt,fas.faTruck
 ,fas.faMobile,fas.faArrowAltCircleRight,fab.faFacebook,fab.faInstagram,fab.faTwitter,fab.faGooglePlus,fab.faYoutube
 ,fas.faHome,fas.faCaretSquareDown,fas.faBars,fas.faLaptop,fas.faKey,fas.faTshirt,fas.faPaintRoller,fas.faHeart
@@ -31,7 +34,7 @@ Vue.use(Vuetify, {
   theme: {
    primary: "#2196F3",
    secondary: "#BBDEFB",
-   accent: "#7C4DFF",
+   accent:"#E65100",
    error: "#f44336",
    warning: "#ffeb3b",
    info: "#1DE9B6",
