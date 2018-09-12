@@ -1,0 +1,18 @@
+.error{
+  color: #F56C6C;
+}
+a{
+  text-decoration: none !important;
+}
+.el-form-item__label{
+float: left !important;
+}
+.el-row {
+   margin-bottom: 20px;
+   &:last-child {
+     margin-bottom: 0;
+   }
+ }
+ .el-col {
+   border-radius: 4px;
+ }

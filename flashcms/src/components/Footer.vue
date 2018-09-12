@@ -1,6 +1,7 @@
 <template lang="html">
   <el-footer class="footer">
- <span class="ver">Version 1.0</span>
+ <span class="ver">Version 1.0 &nbsp; contribute@github&nbsp;<font-awesome-icon :icon="['fab', 'github']" /></span>
+
 </el-footer>
 </template>
 

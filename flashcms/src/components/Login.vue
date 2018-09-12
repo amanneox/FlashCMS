@@ -8,17 +8,19 @@
         <div class="form">
           <el-form  label-position="top" label-width="100px">
             <el-form-item  justify="start" label="E-mail">
-              <el-input clearable></el-input>
+              <el-input v-validate="'required|email'" name="email" clearable></el-input>
+              <span class="error">{{ errors.first('email') }}</span>
             </el-form-item>
             <el-form-item label="Password">
-              <el-input clearable></el-input>
+              <el-input v-validate="'required'" name="password" clearable></el-input>
+              <span class="error">{{ errors.first('password') }}</span>
             </el-form-item>
           </el-form>
         </div>
          <el-button type="primary">Continue</el-button>
          <el-row :gutter="20" class="row-2">
-           <el-col :span="6"> <span class="forgot-text">forgot password&nbsp;?</span> </el-col>
-           <el-col :span="6" :offset="12"><span class="sign-up-text">sign&nbsp;up</span></el-col>
+           <el-col :span="12"> <span class="forgot-text">forgot password&nbsp;?</span> </el-col>
+           <el-col :span="12"><router-link to="/signup"><span class="sign-up-text">sign&nbsp;up</span></router-link></el-col>
          </el-row>
       </el-card>
     </el-col>
@@ -35,6 +37,12 @@
 </script>
 
 <style lang="css">
+.error{
+  color: #F56C6C;
+}
+a{
+  text-decoration: none !important;
+}
 .row-2{
 margin-top: 16px;
 }

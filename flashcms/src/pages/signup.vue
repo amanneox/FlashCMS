@@ -1,13 +1,21 @@
 <template lang="html">
-  <signup/>
+  <div class="main">
+    <brand/>
+    <signup/>
+    <version/>
+  </div>
 </template>
 
 <script>
 /* eslint-disable */
 import signup from '@/components/SignUp.vue'
+import brand from '@/components/Brand.vue'
+import version from '@/components/Footer.vue'
 export default {
   components:{
-    signup
+    signup,
+    brand,
+    version
   }
 }
 </script>
