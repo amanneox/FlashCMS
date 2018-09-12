@@ -1,13 +1,21 @@
 <template lang="html">
-  <login/>
+  <div class="main">
+    <brand/>
+    <login/>
+    <version/>
+  </div>
 </template>
 
 <script>
 /* eslint-disable */
 import login from '@/components/Login.vue'
+import brand from '@/components/Brand.vue'
+import version from '@/components/Footer.vue'
 export default {
   components:{
-    login
+    login,
+    brand,
+    version
   }
 }
 </script>
