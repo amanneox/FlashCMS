@@ -7,7 +7,6 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import {store} from './store'
 import Vuex from 'vuex'
-
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -20,11 +19,10 @@ library.add(fas.faCoffee, fas.faUserCircle, fas.faCompass, fas.faBoxOpen, fas.fa
   , fas.faHome, fas.faCaretSquareDown, fas.faBars, fas.faKey, fas.faTshirt, fas.faPaintRoller, fas.faHeart
   , fas.faUser, fas.faFileContract, fas.faQuestionCircle, fas.faTimes, fas.faFilter, fas.faSortAmountDown,
   fas.faSearch, fas.faArrowRight,
-  fas.faShare, fas.faTrash, fas.faPlusSquare, fas.faMinusSquare, fas.faEdit, fas.faSignOutAlt
+  fas.faShare, fas.faTrash, fas.faPlusSquare, fas.faMinusSquare, fas.faEdit, fas.faSignOutAlt,fas.faPlug
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(Vuex)
