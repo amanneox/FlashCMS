@@ -1,11 +1,28 @@
 <template>
-  <div id="app">
+    <v-app>
     <v-navigation-drawer
       :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer"
       fixed
       app
+      dark
+      color="accent"
+      class="navbar"
     >
+    <v-toolbar flat class="transparent">
+        <v-list class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img src="./assets/ic_logo.png">
+            </v-list-tile-avatar>
+
+            <v-list-tile-content>
+              <v-list-tile-title>FlashCMS</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
+
       <v-list dense>
         <template v-for="item in items">
           <v-layout
@@ -20,9 +37,9 @@
               </v-subheader>
             </v-flex>
             </v-layout>
-          <v-list-tile v-else :key="item.text">
+          <v-list-tile color="white" v-else :key="item.text">
             <v-list-tile-action>
-              <font-awesome-icon size="lg" :icon="`${ item.icon }`" />
+              <font-awesome-icon class="nav-icon" size="lg" :icon="`${ item.icon }`" />
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>
@@ -33,15 +50,15 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="white" class="elevation-0" :clipped-left="$vuetify.breakpoint.lgAndUp" app fixed>
-      <v-btn icon  @click.stop="drawer = !drawer" >
+    <v-toolbar color="secondary" class="elevation-0" :clipped-left="$vuetify.breakpoint.lgAndUp" app fixed>
+      <v-btn icon color="white"  @click.stop="drawer = !drawer" >
           <font-awesome-icon size="lg" icon="bars" />
       </v-btn>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <span class="hidden-sm-and-down">Flash CMS</span>
+        <span  class="hidden-sm-and-down white--text">Flash CMS</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="" icon>
+      <v-btn color="white" icon>
             <font-awesome-icon class="user-icon" size="lg" icon="user" />
       </v-btn>
       <v-btn icon color="red">
@@ -58,8 +75,7 @@
         <router-view/>
       </v-container>
     </v-content>
-
-  </div>
+</v-app>
 </template>
 
 <script>
@@ -93,7 +109,7 @@ export default {
 .power-off-icon{
   color: #fff;
 }
-.user-icon{
-  color: #BDBDBD;
+.navbar{
+  background: #1C2541 !important;
 }
 </style>

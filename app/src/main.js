@@ -14,7 +14,15 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VeeValidate from 'vee-validate'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
-Vue.use(Vuetify)
+
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#0B132B',
+    secondary: '#1C2541',
+    accent: '#3A506B',
+    error: '#0B132B'
+  }
+})
 
 Vue.use(VeeValidate)
 library.add(fas.faCoffee, fas.faUserCircle, fas.faCompass, fas.faBoxOpen, fas.faQuestion, fas.faMobileAlt, fas.faTruck
