@@ -12,6 +12,9 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VeeValidate from 'vee-validate'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+Vue.use(Vuetify)
 
 Vue.use(VeeValidate)
 library.add(fas.faCoffee, fas.faUserCircle, fas.faCompass, fas.faBoxOpen, fas.faQuestion, fas.faMobileAlt, fas.faTruck
@@ -19,7 +22,8 @@ library.add(fas.faCoffee, fas.faUserCircle, fas.faCompass, fas.faBoxOpen, fas.fa
   , fas.faHome, fas.faCaretSquareDown, fas.faBars, fas.faKey, fas.faTshirt, fas.faPaintRoller, fas.faHeart
   , fas.faUser, fas.faFileContract, fas.faQuestionCircle, fas.faTimes, fas.faFilter, fas.faSortAmountDown,
   fas.faSearch, fas.faArrowRight,
-  fas.faShare, fas.faTrash, fas.faPlusSquare, fas.faMinusSquare, fas.faEdit, fas.faSignOutAlt,fas.faPlug
+  fas.faShare, fas.faTrash, fas.faPlusSquare, fas.faMinusSquare, fas.faEdit, fas.faSignOutAlt, fas.faPlug, fas.faSlidersH,
+  fas.faFile, fas.faUser, fas.faPowerOff
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

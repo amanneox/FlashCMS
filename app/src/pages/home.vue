@@ -1,15 +1,14 @@
 <template lang="html">
-  <el-menu>
-    <brand/>
-  </el-menu>
+  <maincon/>
 </template>
 
 <script>
-/* eslint-disable */
-import brand from '@/components/Brand.vue'
+/* eslint-disable*/
+import maincon from '@/components/MainContainer.vue'
+
 export default {
   components:{
-    brand
+    maincon
   }
 }
 </script>
