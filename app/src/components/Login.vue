@@ -2,16 +2,15 @@
   <v-layout class="login-form" justify-center>
    <v-flex xs12 sm6>
      <v-card>
-<v-container>
-  <v-text-field dark flat flat clearable class="elevation-0" solo label="Name" required></v-text-field>
+  <v-container>
+  <v-text-field dark flat clearable class="elevation-0" solo label="Name" required></v-text-field>
   <v-text-field dark flat clearable solo label="E-mail" required></v-text-field>
-   <v-btn color="accent">Continue</v-btn>
+   <v-btn to="/" color="accent">Continue</v-btn>
 </v-container>
      </v-card>
    </v-flex>
  </v-layout>
 </template>
-
 <script>
 /* eslint-disable */
   export default {}

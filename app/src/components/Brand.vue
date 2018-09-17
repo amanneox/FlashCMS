@@ -1,6 +1,6 @@
 <template lang="html">
     <v-toolbar class="elevation-0"
-    color="secondary"
+    color="transparent"
     >
       <img width="100" height="100" src="../assets/ic_logo.png" alt="">
     </V-toolbar>
