@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-app id="app">
     <v-navigation-drawer
       :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer"
@@ -8,6 +8,7 @@
       dark
       color="accent"
       class="navbar"
+      v-if="hide"
     >
     <v-toolbar flat class="transparent">
         <v-list class="pa-0">
@@ -50,18 +51,18 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="secondary" class="elevation-0" :clipped-left="$vuetify.breakpoint.lgAndUp" app fixed>
+    <v-toolbar v-if="hide" color="secondary" class="elevation-0" :clipped-left="$vuetify.breakpoint.lgAndUp" app fixed>
       <v-btn icon color="white"  @click.stop="drawer = !drawer" >
           <font-awesome-icon size="lg" icon="bars" />
       </v-btn>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <span  class="hidden-sm-and-down white--text">Flash CMS</span>
+        <span  class="hidden-sm-and-down white--text font-weight-black">FlashCMS</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn color="white" icon>
             <font-awesome-icon class="user-icon" size="lg" icon="user" />
       </v-btn>
-      <v-btn icon color="red">
+      <v-btn  @click="dialog = true" icon color="red">
               <font-awesome-icon class="power-off-icon" size="lg" icon="power-off" />
       </v-btn>
 
@@ -69,9 +70,36 @@
         <img src="./assets/ic_logo.png" alt="FlashCMS">
       </v-avatar>
     </v-toolbar>
+    <v-dialog
+    v-model="dialog"
+    max-width="290"
+    v-if="hide"
+  >
+    <v-card>
+      <v-card-title class="headline">Are you sure you want to logout?</v-card-title>
+      <v-card-actions>
+        <v-spacer></v-spacer>
 
+        <v-btn
+          color="green darken-1"
+          flat="flat"
+          @click="dialog = false"
+        >
+          Cancel
+        </v-btn>
+
+        <v-btn
+          color="red darken-1"
+          flat="flat"
+          @click="dialog = false"
+        >
+          Logout
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
     <v-content>
-      <v-container fill-height>
+      <v-container>
         <router-view/>
       </v-container>
     </v-content>
@@ -90,17 +118,24 @@ export default {
       { icon: 'sliders-h', text: 'Settings' },
       { icon: 'question-circle', text: 'Help' }
 
-    ]
+    ],
+    dialog: false
   }),
   props: {
     source: String
+  },
+  computed: {
+    hide () {
+      return this.$router.path === '/login' || this.$router.path === '/register'
+    }
   }
 }
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Lato');
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

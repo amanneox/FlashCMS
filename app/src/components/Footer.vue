@@ -1,8 +1,7 @@
 <template lang="html">
-  <el-footer class="footer">
+  <v-layout class="footer">
  <span class="ver">Version 1.0 &nbsp; contribute@github&nbsp;<font-awesome-icon :icon="['fab', 'github']" /></span>
-
-</el-footer>
+</v-layout>
 </template>
 
 <script>
