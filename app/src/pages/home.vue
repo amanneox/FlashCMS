@@ -12,7 +12,7 @@
 
 <script>
 /* eslint-disable*/
-import maincon from '@/components/MainContainer.vue'
+import maincon from '@/components/AddComponent.vue'
 import layoutheader from '@/components/LayoutHeader'
 export default {
   components:{
