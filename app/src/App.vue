@@ -1,21 +1,12 @@
 <template>
     <v-app id="app">
-    <layoutheader v-if="showMenu"/>
-    <v-content>
-      <v-container>
-        <router-view/>
-      </v-container>
-    </v-content>
-</v-app>
+      <router-view/>
+    </v-app>
 </template>
 
 <script>
 /*  eslint-disable */
-import layoutheader from '@/components/LayoutHeader'
 export default {
-  components:{
-    layoutheader
-  },
   data () {
    return {
    }

@@ -1,14 +1,23 @@
 <template lang="html">
-  <maincon/>
+  <div class="">
+    <layoutheader/>
+    <v-content>
+      <v-container>
+    <maincon/>
+  </v-container>
+  </v-content>
+  </div>
+
 </template>
 
 <script>
 /* eslint-disable*/
 import maincon from '@/components/MainContainer.vue'
-
+import layoutheader from '@/components/LayoutHeader'
 export default {
   components:{
-    maincon
+    maincon,
+    layoutheader
   }
 }
 </script>
