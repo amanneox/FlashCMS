@@ -58,7 +58,7 @@
         <span  class="hidden-sm-and-down white--text font-weight-black">FlashCMS</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="white" icon>
+      <v-btn to="/profile" color="white" icon>
             <font-awesome-icon class="user-icon" size="lg" icon="user" />
       </v-btn>
       <v-btn  @click="dialog = true" icon color="red">
