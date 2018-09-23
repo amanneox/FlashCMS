@@ -1,6 +1,6 @@
 <template lang="html">
   <v-layout class="login-form" justify-center>
-   <v-flex xs12 sm6>
+   <v-flex xs10 sm6 md4>
      <v-card>
   <v-container>
   <v-text-field dark flat clearable solo label="Name" required></v-text-field>
@@ -11,7 +11,8 @@
        <span class="text-xs-left forgot">Forgot Password?</span>
      </v-flex>
      <v-flex>
-       <span class="text-xs-left signup">Sign Up</span>
+       <router-link to="/signup"><span class="text-xs-left signup">Sign Up</span>
+       </router-link>
      </v-flex>
    </v-layout>
 </v-container>
