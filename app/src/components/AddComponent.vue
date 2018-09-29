@@ -7,7 +7,7 @@
         <span class="subheading layout-name">Add Component</span>
       </v-flex>
       <v-flex>
-        <v-btn class="add-btn white--text text-capitalize">Add Component&nbsp; <font-awesome-icon icon="plus" /></v-btn>
+        <v-btn  @click="dialog = true" class="add-btn white--text text-capitalize">Add Component&nbsp; <font-awesome-icon icon="plus" /></v-btn>
       </v-flex>
     </v-layout>
 
@@ -26,12 +26,30 @@
 
   </v-container>
   </v-card>
+  <v-dialog
+  v-model="dialog"
+  width="500"
+  >
+  <v-card>
+    <v-container>
+      <v-text-field dark flat clearable solo label="Name" required></v-text-field>
+      <v-btn color="secondary">
+        Create
+      </v-btn>
+    </v-container>
+  </v-card>
+</v-dialog>
 </v-container>
 </template>
 
 <script>
 /* eslint-disable */
 export default {
+  data () {
+     return {
+       dialog: false
+     }
+   }
 }
 </script>
 

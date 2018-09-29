@@ -1,7 +1,9 @@
+// import config from 'config'
 /* eslint-disable */
 import { authHeader } from '../helpers'
+import axios from 'axios'
 const config = {
-  apiUrl:''
+  apiUrl:'https://58nx6q13rc.execute-api.ap-south-1.amazonaws.com/dev'
 }
 export const userService = {
   login,
@@ -13,24 +15,39 @@ export const userService = {
   delete: _delete
 }
 
-function login (username, password) {
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password })
-  }
+async function login (email, password) {
+  console.log(email,password)
 
-  return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
-    .then(handleResponse)
+  const requestOptions = {
+    headers: {
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin" : "*",
+      "Access-Control-Allow-Credentials" : true
+   },
+   email,
+   password
+  }
+try {
+  const res = await axios.post(`${config.apiUrl}/user/authenticate`, requestOptions)
     .then(user => {
       // login successful if there's a jwt token in the response
-      if (user.token) {
+      if (user.data.token) {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('user', JSON.stringify(user))
-      }
 
-      return user
+        localStorage.setItem('user', JSON.stringify(user.data._doc))
+      }
+      return user.data
     })
+  //  console.log(res.data,'@@@')
+  //  return res.data
+  }
+catch (error) {
+      return Promise.reject('Invalid Credentials')
+    }
+}
+
+async function getAll(){
+
 }
 
 function logout () {
@@ -38,33 +55,49 @@ function logout () {
   localStorage.removeItem('user')
 }
 
-function register (user) {
+async function register (user) {
+  const payload = {
+    name:user.name,
+    number:user.number,
+    email: user.email,
+    password: user.password,
+    username: user.email.split('@')[0]
+  }
   const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(user)
+    headers: {
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin" : "*",
+      "Access-Control-Allow-Credentials" : true
+   },
+   ...payload
+  }
+  try {
+      const res = await axios.post(`${config.apiUrl}/user`,requestOptions)
+      console.log(res.data,'@@@')
+      return res.data
+  } catch (error) {
+    return Promise.reject(error)
   }
 
-  return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse)
 }
 
-function getAll () {
+
+async function getById (id) {
   const requestOptions = {
-    method: 'GET',
-    headers: authHeader()
+    headers: {
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin" : "*",
+      "Access-Control-Allow-Credentials" : true
+   },
   }
-
-  return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse)
+try {
+  const res = await axios.get(`${config.apiUrl}/user/${id}`, requestOptions)
+  console.log(res.data)
+  return res.data
+} catch (error) {
+    return Promise.reject(error)
 }
-
-function getById (id) {
-  const requestOptions = {
-    method: 'GET',
-    headers: authHeader()
   }
-
-  return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse)
-}
 
 function update (user) {
   const requestOptions = {
@@ -86,11 +119,12 @@ function _delete (id) {
   return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse)
 }
 
-function handleResponse (response) {
-  return response.text().then(text => {
+async function handleResponse (response) {
+  console.log(response.data)
+  return await response.data.text().then(text => {
     const data = text && JSON.parse(text)
-    if (!response.ok) {
-      if (response.status === 401) {
+    if (!response.data) {
+      if (response.status !== 200) {
         // auto logout if 401 response returned from api
         logout()
         location.reload(true)
@@ -99,7 +133,6 @@ function handleResponse (response) {
       const error = (data && data.message) || response.statusText
       return Promise.reject(error)
     }
-
     return data
   })
 }

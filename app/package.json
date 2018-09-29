@@ -19,6 +19,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.3.1",
     "@fortawesome/free-solid-svg-icons": "^5.3.1",
     "@fortawesome/vue-fontawesome": "^0.1.1",
+    "axios": "^0.18.0",
     "browser-sync": "^2.24.7",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^6.0.0",
