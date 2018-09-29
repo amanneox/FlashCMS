@@ -27,6 +27,7 @@ async function login (email, password) {
    email,
    password
   }
+  console.log(requestOptions)
 try {
   const res = await axios.post(`${config.apiUrl}/user/authenticate`, requestOptions)
     .then(user => {

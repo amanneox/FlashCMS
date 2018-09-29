@@ -3,19 +3,24 @@
    <v-flex xs10 sm6 md4>
      <v-card>
   <v-container>
-  <v-text-field dark flat clearable solo label="Name" required></v-text-field>
-  <v-text-field dark flat clearable solo label="E-mail" required></v-text-field>
-  <v-text-field dark flat clearable solo label="Number" required></v-text-field>
-   <v-btn to="/" class="continue-btn white--text">Continue</v-btn>
-   <v-layout justify-start>
-     <v-flex>
-       <span class="text-xs-left forgot">Need Help?</span>
-     </v-flex>
-     <v-flex>
-       <router-link to="/login"><span class="text-xs-left signup">Login</span>
-    </router-link>
-        </v-flex>
-   </v-layout>
+  <v-text-field v-model="name" v-validate="'required'" name="name" dark flat clearable solo label="Name" required></v-text-field>
+  <span>{{errors.first('name')}}</span>
+  <v-text-field v-model="email" v-validate="'required|email'" name="email" dark flat clearable solo label="E-mail"></v-text-field>
+  <span>{{ errors.first('email') }}</span>
+  <v-text-field v-model="password" v-validate="'required'" type="password" name="password" dark flat clearable solo label="Password"></v-text-field>
+  <span>{{ errors.first('password') }}</span>
+  <v-text-field v-model="number" v-validate="'required|digits:10'" name="number" dark flat clearable solo label="Number" required></v-text-field>
+  <span>{{errors.first('number')}}</span>
+  <v-btn class="continue-btn white--text">Continue</v-btn>
+  <v-layout justify-start>
+    <v-flex>
+      <span class="text-xs-left forgot">Need Help?</span>
+    </v-flex>
+    <v-flex>
+      <router-link to="/login"><span class="text-xs-left signup">Login</span>
+      </router-link>
+    </v-flex>
+  </v-layout>
 </v-container>
      </v-card>
    </v-flex>
@@ -23,7 +28,54 @@
 </template>
 <script>
 /* eslint-disable */
-  export default {}
+import { mapState, mapActions } from 'vuex'
+export default {
+  $_veeValidate: {
+    validator: 'new'
+  },
+  data: () => ({
+    user: {
+    name: '',
+    number: '',
+    email: '',
+    password: ''
+  },
+  loader: null,
+  loading: false,
+  drawer: null
+}),
+props: {
+  source: String
+},
+computed: {
+       ...mapState('account', ['status'])
+   },
+watch: {
+     loader () {
+       const l = this.loader
+       this[l] = !this[l]
+
+       setTimeout(() => (this[l] = false), 3000)
+
+       this.loader = null
+     }
+   },
+   methods:{
+      ...mapActions('account', ['register']),
+     $_emitData () {
+       this.register(this.user)
+       /*
+       this.$validator.validateAll()
+         if (this.errors.any()) {
+           return
+         }
+         else {
+            this.register(this.user);
+         }
+         */
+   }
+ }
+}
 </script>
 
 <style lang="css">
