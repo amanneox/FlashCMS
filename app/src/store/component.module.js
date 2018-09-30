@@ -1,29 +1,69 @@
-const state = {
-  features: {
+import { componentService } from '../services'
 
-  },
-  name: null
+const state = {
+  component: {}
 }
 
 const actions = {
-  create ({commit}, name) {
-    commit('create', name)
-  },
-  update ({commit}, features) {
-    commit('update', features)
-  }
+  getAll ({ commit }) {
+    commit('getAllRequest')
 
+    componentService.getAll()
+      .then(
+        components => commit('getAllSuccess', components),
+        error => commit('getAllFailure', error)
+      )
+  },
+
+  delete ({ commit }, id) {
+    commit('deleteRequest', id)
+
+    componentService.delete(id)
+      .then(
+        component => commit('deleteSuccess', id),
+        error => commit('deleteSuccess', { id, error: error.toString() })
+      )
+  }
 }
 
 const mutations = {
-  create (state, name) {
-    state.name = name
+  getAllRequest (state) {
+    state.component = { loading: true }
   },
-  update (state, features) {
-    state.features = features
+  getAllSuccess (state, components) {
+    state.component = { items: components }
+  },
+  getAllFailure (state, error) {
+    state.component = { error }
+  },
+  deleteRequest (state, id) {
+    // add 'deleting:true' property to component being deleted
+    state.component.items = state.component.items.map(component =>
+      component.id === id
+        ? { ...component, deleting: true }
+        : component
+    )
+  },
+  deleteSuccess (state, id) {
+    // remove deleted component from state
+    state.component.items = state.component.items.filter(component => component.id !== id)
+  },
+  deleteFailure (state, { id, error }) {
+    // remove 'deleting:true' property and add 'deleteError:[error]' property to component
+    state.component.items = state.items.map(component => {
+      if (component.id === id) {
+        // make copy of component without 'deleting:true' property
+        const { deleting, ...componentCopy } = component
+        // return copy of component with 'deleteError:[error]' property
+        return { ...componentCopy, deleteError: error }
+      }
+
+      return component
+    })
   }
 }
-export const alert = {
+
+export const components = {
   namespaced: true,
   state,
   actions,
