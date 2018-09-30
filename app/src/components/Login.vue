@@ -7,6 +7,7 @@
      <span>{{ errors.first('email') }}</span>
   <v-text-field v-model="password" v-validate="'required'" type="password" name="password" dark flat clearable solo label="Password"></v-text-field>
    <span>{{ errors.first('password') }}</span>
+   <br>
    <v-btn  @click.prevent="$_emitData()" :loading="loading" :disabled="loading" color="orange"  @click.native="loader = 'loading'" class="continue continue-btn white--text">Continue</v-btn>
    <v-layout justify-start>
      <v-flex>
@@ -102,4 +103,40 @@ input{
 label{
   color: black !important;
 }
+.custom-loader {
+   animation: loader 1s infinite;
+   display: flex;
+ }
+ @-moz-keyframes loader {
+   from {
+     transform: rotate(0);
+   }
+   to {
+     transform: rotate(360deg);
+   }
+ }
+ @-webkit-keyframes loader {
+   from {
+     transform: rotate(0);
+   }
+   to {
+     transform: rotate(360deg);
+   }
+ }
+ @-o-keyframes loader {
+   from {
+     transform: rotate(0);
+   }
+   to {
+     transform: rotate(360deg);
+   }
+ }
+ @keyframes loader {
+   from {
+     transform: rotate(0);
+   }
+   to {
+     transform: rotate(360deg);
+   }
+ }
 </style>

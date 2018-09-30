@@ -11,7 +11,7 @@
   <span>{{ errors.first('password') }}</span>
   <v-text-field v-model="number" v-validate="'required|digits:10'" name="number" dark flat clearable solo label="Number" required></v-text-field>
   <span>{{errors.first('number')}}</span>
-  <v-btn class="continue-btn white--text">Continue</v-btn>
+  <v-btn @click.prevent="$_emitData()" :loading="loading" :disabled="loading" color="orange"  @click.native="loader = 'loading'" class="continue-btn white--text">Continue</v-btn>
   <v-layout justify-start>
     <v-flex>
       <span class="text-xs-left forgot">Need Help?</span>
@@ -79,6 +79,42 @@ watch: {
 </script>
 
 <style lang="css">
+.custom-loader {
+   animation: loader 1s infinite;
+   display: flex;
+ }
+ @-moz-keyframes loader {
+   from {
+     transform: rotate(0);
+   }
+   to {
+     transform: rotate(360deg);
+   }
+ }
+ @-webkit-keyframes loader {
+   from {
+     transform: rotate(0);
+   }
+   to {
+     transform: rotate(360deg);
+   }
+ }
+ @-o-keyframes loader {
+   from {
+     transform: rotate(0);
+   }
+   to {
+     transform: rotate(360deg);
+   }
+ }
+ @keyframes loader {
+   from {
+     transform: rotate(0);
+   }
+   to {
+     transform: rotate(360deg);
+   }
+ }
 .login-form{
   margin-top: 22px;
 }
