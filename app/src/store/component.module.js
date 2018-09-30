@@ -1,7 +1,8 @@
 import { componentService } from '../services'
 
 const state = {
-  component: {}
+  component: {},
+  request: {}
 }
 
 const actions = {
@@ -14,7 +15,14 @@ const actions = {
         error => commit('getAllFailure', error)
       )
   },
-
+  create ({commit}, payload) {
+    commit('createRequest')
+    componentService.create(payload)
+      .then(
+        commit('createSuccess', 'success'),
+        error => commit('createFailure', error)
+      )
+  },
   delete ({ commit }, id) {
     commit('deleteRequest', id)
 
@@ -27,6 +35,15 @@ const actions = {
 }
 
 const mutations = {
+  createRequest (state) {
+    state.request = { loading: true }
+  },
+  createSuccess (state, msg) {
+    state.request = { request: msg }
+  },
+  createFailure (state, error) {
+    state.request = { error }
+  },
   getAllRequest (state) {
     state.component = { loading: true }
   },

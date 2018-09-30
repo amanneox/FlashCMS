@@ -22,7 +22,7 @@ async function getAll () {
 try {
   const res = await axios.get(`${config.apiUrl}/component/`, requestOptions)
   console.log(res.data)
-  localStorage.setItem('components', JSON.stringify(res.data))
+//  localStorage.setItem('components', JSON.stringify(res.data))
   return res.data
 } catch (error) {
     return Promise.reject(error)
@@ -40,7 +40,7 @@ async function getById (id) {
 try {
   const res = await axios.get(`${config.apiUrl}/component/get/${id}`, requestOptions)
   console.log(res.data)
-  localStorage.setItem('activeComponent', JSON.stringify(res.data))
+  //localStorage.setItem('activeComponent', JSON.stringify(res.data))
   return res.data
 } catch (error) {
     return Promise.reject(error)
