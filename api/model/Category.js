@@ -8,12 +8,9 @@ const model = mongoose.model('Category', {
   },
   type: {
     type: String,
-    required: true,
+    required: false,
   },
-  subType:{
-    type: String,
-    required: true,
-  }
+
 })
 
 module.exports = model;

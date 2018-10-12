@@ -8,21 +8,14 @@ const model = mongoose.model('Item', {
   },
   description:{
     type: String,
-    required: true
+    required: false
   },
   categoryID: {
     type:Schema.ObjectId,
     required: true
   },
-  value:{
-    type: Number,
-    required: true
-  },
-  image:{
-    type: String
-  },
-  thumbnail:{
-    type: String
+  data:{
+
   },
   created_at:{
     type: Date,

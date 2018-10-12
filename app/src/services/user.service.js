@@ -3,7 +3,7 @@
 import { authHeader } from '../helpers'
 import axios from 'axios'
 const config = {
-  apiUrl:'https://58nx6q13rc.execute-api.ap-south-1.amazonaws.com/dev'
+  apiUrl:'https://11d48we87i.execute-api.ap-south-1.amazonaws.com/dev/'
 }
 export const userService = {
   login,
