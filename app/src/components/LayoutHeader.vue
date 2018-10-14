@@ -17,7 +17,7 @@
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title>FlashCMS</v-list-tile-title>
+              <v-list-tile-title><router-link to="/">FlashCMS</router-link></v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   data: () => ({
     drawer: true,
@@ -136,5 +136,9 @@ export default {
 }
 .navbar{
   background: #1C2541 !important;
+}
+a{
+  text-decoration: none;
+  color: #fff;
 }
 </style>

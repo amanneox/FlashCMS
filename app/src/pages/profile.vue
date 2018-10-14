@@ -3,7 +3,7 @@
     <layoutheader/>
     <v-content>
       <v-container>
-      <profile/>
+      <profile :user="[account.user]"/>
   </v-container>
   </v-content>
 
@@ -11,12 +11,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import profile from '@/components/Profile.vue'
 import layoutheader from '@/components/LayoutHeader'
 export default {
   components: {
     profile,
     layoutheader
+  },
+  computed: {
+    ...mapState({account: 'account', status: ['status'], user: ['user']})
   }
 }
 </script>
