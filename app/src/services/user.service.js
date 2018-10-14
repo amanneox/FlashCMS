@@ -16,8 +16,6 @@ export const userService = {
 }
 
 async function login (email, password) {
-  console.log(email,password)
-
   const requestOptions = {
     headers: {
       'Content-Type': 'application/json',
@@ -27,7 +25,6 @@ async function login (email, password) {
    email,
    password
   }
-  console.log(requestOptions)
 try {
   const res = await axios.post(`${config.apiUrl}/user/authenticate`, requestOptions)
     .then(user => {
@@ -39,7 +36,7 @@ try {
       }
       return user.data
     })
-  //  console.log(res.data,'@@@')
+
   //  return res.data
   }
 catch (error) {
@@ -52,11 +49,13 @@ async function getAll(){
 }
 
 function logout () {
+  console.log('removed')
   // remove user from local storage to log user out
   localStorage.removeItem('user')
 }
 
 async function register (user) {
+  console.log(user)
   const payload = {
     name:user.name,
     number:user.number,
@@ -72,6 +71,7 @@ async function register (user) {
    },
    ...payload
   }
+  console.log(requestOptions)
   try {
       const res = await axios.post(`${config.apiUrl}/user`,requestOptions)
       console.log(res.data,'@@@')

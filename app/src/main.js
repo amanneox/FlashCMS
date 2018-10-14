@@ -14,6 +14,7 @@ import VeeValidate from 'vee-validate'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import axios from 'axios'
+import VueAxios from 'vue-axios'
 Vue.use(Vuetify, {
   theme: {
     primary: '#1C2541',
@@ -24,7 +25,7 @@ Vue.use(Vuetify, {
     secondary2: '034748'
   }
 })
-Vue.use(axios)
+Vue.use(VueAxios, axios)
 Vue.use(VeeValidate)
 library.add(fas.faCoffee, fas.faUserCircle, fas.faCompass, fas.faBoxOpen, fas.faQuestion, fas.faMobileAlt, fas.faTruck
   , fas.faMobile, fas.faArrowAltCircleRight, fab.faFacebook, fab.faGooglePlus, fab.faGithub

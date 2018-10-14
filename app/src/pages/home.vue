@@ -18,7 +18,13 @@ export default {
   components:{
     maincon,
     layoutheader
-  }
+  },
+  created(){
+    const loggedIn = localStorage.getItem('user')
+    if (!loggedIn) {
+      this.$router.push('/login')
+    }
+}
 }
 </script>
 

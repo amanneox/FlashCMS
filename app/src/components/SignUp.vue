@@ -3,15 +3,15 @@
    <v-flex xs10 sm6 md4>
      <v-card>
   <v-container>
-  <v-text-field v-model="name" v-validate="'required'" name="name" dark flat clearable solo label="Name" required></v-text-field>
+  <v-text-field v-model="user.name" v-validate="'required'" name="name" dark flat clearable solo label="Name" required></v-text-field>
   <span>{{errors.first('name')}}</span>
-  <v-text-field v-model="email" v-validate="'required|email'" name="email" dark flat clearable solo label="E-mail"></v-text-field>
+  <v-text-field v-model="user.email" v-validate="'required|email'" name="email" dark flat clearable solo label="E-mail"></v-text-field>
   <span>{{ errors.first('email') }}</span>
-  <v-text-field v-model="password" v-validate="'required'" type="password" name="password" dark flat clearable solo label="Password"></v-text-field>
+  <v-text-field v-model="user.password" v-validate="'required'" type="password" name="password" dark flat clearable solo label="Password"></v-text-field>
   <span>{{ errors.first('password') }}</span>
-  <v-text-field v-model="number" v-validate="'required|digits:10'" name="number" dark flat clearable solo label="Number" required></v-text-field>
+  <v-text-field v-model="user.number" v-validate="'required|digits:10'" name="number" dark flat clearable solo label="Number" required></v-text-field>
   <span>{{errors.first('number')}}</span>
-  <v-btn @click.prevent="$_emitData()" :loading="loading" :disabled="loading" color="orange"  @click.native="loader = 'loading'" class="continue-btn white--text">Continue</v-btn>
+  <v-btn @click.prevent="$_emitData" :loading="loading" :disabled="loading" color="orange"  @click.native="loader = 'loading'" class="continue-btn white--text">Continue</v-btn>
   <v-layout justify-start>
     <v-flex>
       <span class="text-xs-left forgot">Need Help?</span>

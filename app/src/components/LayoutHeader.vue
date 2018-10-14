@@ -87,7 +87,7 @@
         </v-btn>
 
         <v-btn
-          to="/login"
+          @click.prevent="$_logout()"
           color="red darken-1"
           flat="flat"
           @click="dialog = false"
@@ -101,6 +101,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
   data: () => ({
     drawer: true,
@@ -117,6 +118,13 @@ export default {
   }),
   props: {
     source: String
+  },
+  methods: {
+    ...mapActions('account', ['login', 'logout']),
+    $_logout () {
+      console.log('logout')
+      this.logout()
+    }
   }
 }
 </script>

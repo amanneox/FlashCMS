@@ -1,5 +1,5 @@
 import { userService } from '../services'
-import { router } from '../helpers'
+import router from '../router'
 
 const user = JSON.parse(localStorage.getItem('user'))
 const state = user
@@ -13,7 +13,10 @@ const actions = {
     userService.login(email, password)
       .then(
         user => {
-          commit('loginSuccess', user)
+          const loggedIn = JSON.parse(localStorage.getItem('user'))
+          console.log(loggedIn)
+          commit('loginSuccess', loggedIn)
+          dispatch('alert/success', 'Login successful', { root: true })
           router.push('/')
         },
         error => {
@@ -25,6 +28,7 @@ const actions = {
   logout ({ commit }) {
     userService.logout()
     commit('logout')
+    router.push('/login')
   },
   register ({ dispatch, commit }, user) {
     commit('registerRequest', user)

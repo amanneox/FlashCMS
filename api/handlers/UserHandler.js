@@ -45,6 +45,7 @@ module.exports.user = (event, context, callback) => {
 
 module.exports.authenticate = (event ,context , callback) =>{
   const data = JSON.parse(event.body)
+  console.log(data)
   const res = dbConnectAndExecute(mongoString, () => (
     UserModel
       .find({ email: data.email })
