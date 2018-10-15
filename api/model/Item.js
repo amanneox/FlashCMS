@@ -10,7 +10,7 @@ const model = mongoose.model('Item', {
     type: String,
     required: false
   },
-  categoryID: {
+  contentID: {
     type:Schema.ObjectId,
     required: true
   },

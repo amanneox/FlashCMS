@@ -48,27 +48,27 @@ functions:
           method: get
           cors: true
 
-  createCategory:
-    handler: handlers/CategoryHandler.createCategory
+  createContent:
+    handler: handlers/ContentHandler.createContent
     events:
       - http:
-          path: category/post
+          path: content/post
           method: post
           cors: true
 
-  updateCategory:
-    handler: handlers/CategoryHandler.updateCategory
+  updateContent:
+    handler: handlers/ContentHandler.updateContent
     events:
       - http:
-          path: category/put/{id}
+          path: content/put/{id}
           method: post
           cors: true
 
-  getCategory:
-    handler: handlers/CategoryHandler.getCategory
+  getContent:
+    handler: handlers/ContentHandler.getContent
     events:
       - http:
-          path: category/list
+          path: content/list
           method: get
           cors: true
 

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Promise = require('bluebird')
 const validator = require('validator')
-const CategoryModel = require('../model/Category.js')
+const ContentModel = require('../model/Content.js')
 require('dotenv').config()
 mongoose.Promise = Promise;
 
@@ -19,54 +19,72 @@ function dbConnectAndExecute(dbUrl, fn) {
   return dbExecute(mongoose.connect(dbUrl, { useMongoClient: true }), fn)
 }
 
-module.exports.getCategory = (event, context, callback) => {
+module.exports.getContent = (event, context, callback) => {
   dbConnectAndExecute(mongoString, () => (
-    CategoryModel
+    ContentModel
       .find()
-      .then(category => callback(null, { statusCode: 200, body: JSON.stringify(category) }))
+      .then(content => callback(null, {
+        statusCode: 200,
+        headers: {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin" : "*",
+        "Access-Control-Allow-Credentials" : true
+      },
+        body: JSON.stringify(content) }))
       .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
   ))
 }
 
-module.exports.createCategory = (event, context, callback) => {
+module.exports.createContent = (event, context, callback) => {
     const data = JSON.parse(event.body)
-    const category = new  CategoryModel({
-      name: data.name,
-      subType: data.subType,
+    const content = new  ContentModel({
+      name: data.content,
       type: data.type,
     })
-
+    console.log(data)
     dbConnectAndExecute(mongoString, () => (
-      category
+      content
         .save()
         .then(() => callback(null, {
           statusCode: 200,
-          body: JSON.stringify({ id: category.id }),
+          headers: {
+          'Content-Type': 'application/json',
+          "Access-Control-Allow-Origin" : "*",
+          "Access-Control-Allow-Credentials" : true
+        },
+          body: JSON.stringify({ id: content.id }),
         }))
         .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
     ))
   }
 
-  module.exports.deleteCategory = (event, context, callback) => {
+  module.exports.deleteContent = (event, context, callback) => {
     if (!validator.isAlphanumeric(event.pathParameters.id)) {
       callback(null, createErrorResponse(400, 'Incorrect id'))
       return
     }
 
     dbConnectAndExecute(mongoString, () => (
-      CategoryModel
+      ContentModel
         .remove({ _id: event.pathParameters.id })
-        .then(() => callback(null, { statusCode: 200, body: JSON.stringify('Ok') }))
+        .then(() => callback(null, {
+           statusCode: 200,
+           headers: {
+           'Content-Type': 'application/json',
+           "Access-Control-Allow-Origin" : "*",
+           "Access-Control-Allow-Credentials" : true
+         },
+           body: JSON.stringify('Ok') }))
         .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
     ))
   }
 
-  module.exports.updateCategory = (event, context, callback) => {
+  module.exports.updateContent = (event, context, callback) => {
     const data = JSON.parse(event.body)
     const id = event.pathParameters.id
 
 
-    const category = new CategoryModel({
+    const content = new ContentModel({
       _id: id,
       name: data.name,
       subType: data.subType,
@@ -75,8 +93,15 @@ module.exports.createCategory = (event, context, callback) => {
 
 
     dbConnectAndExecute(mongoString, () => (
-      UserModel.findByIdAndUpdate(id, user)
-        .then(() => callback(null, { statusCode: 200, body: JSON.stringify('Ok') }))
+      ContentModel.findByIdAndUpdate(id, user)
+        .then(() => callback(null, {
+           statusCode: 200,
+           headers: {
+           'Content-Type': 'application/json',
+           "Access-Control-Allow-Origin" : "*",
+           "Access-Control-Allow-Credentials" : true
+         },
+           body: JSON.stringify('Ok') }))
         .catch(err => callback(err, createErrorResponse(err.statusCode, err.message)))
     ))
   }

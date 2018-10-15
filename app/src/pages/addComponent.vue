@@ -3,6 +3,8 @@
 </template>
 
 <script>
+/* eslint-disable */
+import { mapState, mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -12,6 +14,9 @@ export default {
         {name:'component-list', type:'list',value:'null'},
       ]
     }
+  },
+  computed:{
+    ...mapActions('content', ['create']),
   }
 }
 </script>

@@ -2,9 +2,9 @@
 import { authHeader } from '../helpers'
 import axios from 'axios'
 const config = {
-  apiUrl:'https://58nx6q13rc.execute-api.ap-south-1.amazonaws.com/dev'
+  apiUrl:'https://11d48we87i.execute-api.ap-south-1.amazonaws.com/dev'
 }
-export const componentService = {
+export const contentService = {
   getAll,
   getById,
   update,
@@ -20,9 +20,8 @@ async function getAll () {
    },
   }
 try {
-  const res = await axios.get(`${config.apiUrl}/component/`, requestOptions)
+  const res = await axios.get(`${config.apiUrl}/content/list`, requestOptions)
   console.log(res.data)
-//  localStorage.setItem('components', JSON.stringify(res.data))
   return res.data
 } catch (error) {
     return Promise.reject(error)
@@ -38,47 +37,47 @@ async function getById (id) {
    },
   }
 try {
-  const res = await axios.get(`${config.apiUrl}/component/get/${id}`, requestOptions)
+  const res = await axios.get(`${config.apiUrl}/content/get/${id}`, requestOptions)
   console.log(res.data)
-  //localStorage.setItem('activeComponent', JSON.stringify(res.data))
   return res.data
 } catch (error) {
     return Promise.reject(error)
 }
   }
 
-async function update (component) {
+async function update (content) {
   const requestOptions = {
     headers: {
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin" : "*",
       "Access-Control-Allow-Credentials" : true
    },
-    component
+    content
   }
 try {
-  const res = await axios.post(`${config.apiUrl}/component/update/${component.id}`, requestOptions)
+  const res = await axios.post(`${config.apiUrl}/content/update/${content.id}`, requestOptions)
   console.log(res.data)
 } catch (error) {
   return Promise.reject(error)
 }
 }
 
-async function create (component) {
+async function create (content) {
   const requestOptions = {
     headers: {
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin" : "*",
       "Access-Control-Allow-Credentials" : true
    },
-    component
+    content
   }
+  console.log(content)
 try {
-  const res = await axios.post(`${config.apiUrl}/component/create/`, requestOptions)
+  const res = await axios.post(`${config.apiUrl}/content/post/`, requestOptions)
   console.log(res.data)
 } catch (error) {
   return Promise.reject(error)
-}
+ }
 }
 
 async function _delete (id) {
@@ -91,7 +90,7 @@ async function _delete (id) {
    },
   }
 try {
-  const res = await axios.get(`${config.apiUrl}/component/delete/${id}`, requestOptions)
+  const res = await axios.get(`${config.apiUrl}/content/delete/${id}`, requestOptions)
 } catch (error) {
   return Promise.reject(error)
 }

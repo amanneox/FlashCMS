@@ -12,9 +12,9 @@
     </v-layout>
 
     <v-container>
-    <v-layout class="layout-item" justify-left v-for="i in 4" :key="i" row wrap>
+    <v-layout class="layout-item" justify-left v-for="i in content" :key="i" row wrap>
       <v-flex xs8>
-        <span class="text-xs-left name">This is a dummy component</span>
+        <span class="text-xs-left name">{{i}}</span>
       </v-flex>
       <v-flex xs4>
         <v-btn icon class="edit-icon">
@@ -32,8 +32,8 @@
   >
   <v-card>
     <v-container>
-      <v-text-field dark flat clearable solo label="Name" required></v-text-field>
-      <v-btn color="secondary">
+      <v-text-field v-model="name" dark flat clearable solo label="Name" required></v-text-field>
+      <v-btn @click.prevent="$_emitData" color="secondary">
         Create
       </v-btn>
     </v-container>
@@ -44,12 +44,23 @@
 
 <script>
 /* eslint-disable */
+import { mapState, mapActions } from 'vuex'
 export default {
   data () {
      return {
-       dialog: false
+       dialog: false,
+       name:''
      }
+   },
+   methods:{
+      ...mapActions('content', ['create']),
+     $_emitData () {
+       this.create(this.name)
    }
+ },
+ computed:{
+   ...mapActions('content',['getAll']),
+ }
 }
 </script>
 
