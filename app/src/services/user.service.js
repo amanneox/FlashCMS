@@ -9,7 +9,7 @@ export const userService = {
   login,
   logout,
   register,
-  getAll,
+  get_All,
   getById,
   update,
   delete: _delete
@@ -44,7 +44,7 @@ catch (error) {
     }
 }
 
-async function getAll(){
+async function get_All(){
 
 }
 

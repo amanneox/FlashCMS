@@ -5,13 +5,13 @@ const state = {
 }
 
 const actions = {
-  getAll ({ commit }) {
-    commit('getAllRequest')
+  get_All ({ commit }) {
+    commit('get_AllRequest')
 
-    userService.getAll()
+    userService.get_All()
       .then(
-        users => commit('getAllSuccess', users),
-        error => commit('getAllFailure', error)
+        users => commit('get_AllSuccess', users),
+        error => commit('get_AllFailure', error)
       )
   },
 
@@ -27,13 +27,13 @@ const actions = {
 }
 
 const mutations = {
-  getAllRequest (state) {
+  get_AllRequest (state) {
     state.all = { loading: true }
   },
-  getAllSuccess (state, users) {
+  get_AllSuccess (state, users) {
     state.all = { items: users }
   },
-  getAllFailure (state, error) {
+  get_AllFailure (state, error) {
     state.all = { error }
   },
   deleteRequest (state, id) {

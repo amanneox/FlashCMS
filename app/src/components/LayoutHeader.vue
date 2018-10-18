@@ -43,7 +43,7 @@
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>
-                {{ item.text }}
+                <router-link :to="`${item.link}`">{{ item.text }}</router-link>
               </v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -106,12 +106,12 @@ export default {
   data: () => ({
     drawer: true,
     items: [
-      { icon: 'plus-square', text: 'Create Content' },
-      { icon: 'file', text: 'Content Manager' },
-      { icon: 'user-circle', text: 'Users' },
-      { icon: 'plug', text: 'Plugins' },
-      { icon: 'sliders-h', text: 'Settings' },
-      { icon: 'question-circle', text: 'Help' }
+      { icon: 'plus-square', text: 'Create Content', link: 'create' },
+      { icon: 'file', text: 'Content Manager', link: 'manage' },
+      { icon: 'user-circle', text: 'Users', link: 'users' },
+      { icon: 'plug', text: 'Plugins', link: 'plugins' },
+      { icon: 'sliders-h', text: 'Settings', link: 'settings' },
+      { icon: 'question-circle', text: 'Help', link: 'help' }
 
     ],
     dialog: false

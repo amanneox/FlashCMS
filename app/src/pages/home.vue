@@ -3,7 +3,7 @@
     <layoutheader/>
     <v-content>
       <v-container>
-    <maincon/>
+      <span>Home</span>
   </v-container>
   </v-content>
   </div>
@@ -12,11 +12,9 @@
 
 <script>
 /* eslint-disable*/
-import maincon from '@/components/AddComponent.vue'
 import layoutheader from '@/components/LayoutHeader'
 export default {
   components:{
-    maincon,
     layoutheader
   },
   created(){

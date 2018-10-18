@@ -1,18 +1,32 @@
 import { contentService } from '../services'
 
 const state = {
-  content: {},
-  request: {}
+  items: {},
+  request: {},
+  current: {}
 }
 
 const actions = {
-  getAll ({ commit }) {
-    commit('getAllRequest')
+  get_All ({ commit }) {
+    commit('get_AllRequest')
 
-    contentService.getAll()
+    contentService.get_All()
       .then(
-        contents => commit('getAllSuccess', contents),
-        error => commit('getAllFailure', error)
+        content => {
+          commit('get_AllSuccess', content)
+          console.log(content, '######')
+        },
+        error => commit('get_AllFailure', error)
+      )
+  },
+  getById ({commit}) {
+    contentService.getById()
+      .then(
+        current => {
+          commit('getByIdSuccess', current)
+          console.log(current)
+        },
+        error => commit('get_AllFailure', error)
       )
   },
   create ({commit}, payload) {
@@ -44,14 +58,17 @@ const mutations = {
   createFailure (state, error) {
     state.request = { error }
   },
-  getAllRequest (state) {
-    state.content = { loading: true }
+  get_AllRequest (state) {
+    state.request = { loading: true }
   },
-  getAllSuccess (state, contents) {
-    state.content = { items: contents }
+  get_AllSuccess (state, content) {
+    state.items = { content }
   },
-  getAllFailure (state, error) {
-    state.content = { error }
+  getByIdSuccess (state, data) {
+    state.current = {data}
+  },
+  get_AllFailure (state, error) {
+    state.request = { error }
   },
   deleteRequest (state, id) {
     // add 'deleting:true' property to content being deleted
