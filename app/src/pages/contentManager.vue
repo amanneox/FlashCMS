@@ -5,12 +5,20 @@
   <v-container>
     <v-card>
       <v-layout class="main-content" row wrap>
-        <v-flex xs3>
+        <v-flex v-for="i in content.items.content" :key="`${i}-item`" xs4 class="content-box">
           <v-card class="layout-item item">
-            <span class="layout-name">This is a dummy content</span>
-            <v-btn icon class="edit-icon">
-              <font-awesome-icon class="" size="lg" icon="edit" />
-            </v-btn>
+            <v-container>
+              <v-layout>
+              <p class="layout-name subheading">{{i.name}}</p>
+              </v-layout>
+              <v-layout>
+                <p>{{i._id}}</p>
+              </v-layout>
+              <v-btn icon class="edit-icon" small fab dark color="accent">
+               <v-icon dark>edit</v-icon>
+              </v-btn>
+
+            </v-container>
           </v-card>
         </v-flex>
       </v-layout>
@@ -32,18 +40,24 @@ export default {
     return {
     }
   },
+  methods:{
+     ...mapActions('content', ['create','get_All']),
+},
+  mounted(){
+    this.get_All()
+  },
   computed:{
-    ...mapActions('content', ['get_All']),
-    contentlist(){
-      return this.get_All()
-    }
+         ...mapState({content: 'content',})
   }
 }
 </script>
 
 <style lang="css">
+.content-box{
+  padding: 12px;
+}
 .layout-item{
-  background-color: #F5F5F5;
+  background-color: #F5F5F5 !important;
   margin: 12px !important;
 }
 .layout-name{
@@ -54,7 +68,7 @@ export default {
   float: left;
 }
 .edit-icon{
-  float: right;
+  float: right !important;
 }
  .item {
    margin-bottom: 18px;
