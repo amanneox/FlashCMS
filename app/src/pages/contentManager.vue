@@ -25,7 +25,6 @@
   <div class="text-xs-right pagination-holder">
   <v-pagination v-model="currentPage" :length="totalPages"></v-pagination>
 </div>
-{{currentPage}}
   </v-container>
 </v-content>
 </div>
@@ -63,9 +62,12 @@ export default {
          i < Math.min(this.startPage + this.itemsPerPage);
          i+= 1 ) {
         const item = this.content.items.content[i]
-         range.push({
-           ...item
-         });
+          if (typeof item != 'undefined') {
+            range.push({
+              ...item
+            })
+          }
+
        }
          return range
          },
