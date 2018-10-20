@@ -14,7 +14,7 @@
               <v-layout>
                 <p>{{i._id}}</p>
               </v-layout>
-              <v-btn icon class="edit-icon" small fab dark color="accent">
+              <v-btn :to="`manage/${i._id}`" icon class="edit-icon" small fab dark color="accent">
                <v-icon dark>edit</v-icon>
               </v-btn>
             </v-container>

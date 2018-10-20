@@ -6,6 +6,7 @@ import SignUp from '@/pages/signup'
 import Profile from '@/pages/profile'
 import Manage from '@/pages/contentManager'
 import Create from '@/pages/addComponent'
+import _Content from '@/pages/_content'
 Vue.use(Router)
 
 export default new Router({
@@ -39,6 +40,11 @@ export default new Router({
       path: '/create',
       name: 'Create',
       component: Create
+    },
+    {
+      path: '/manage/:id',
+      name: 'Content',
+      component: _Content
     }
   ]
 })

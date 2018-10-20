@@ -15,7 +15,8 @@
       </v-layout>
 
       <v-container>
-      <v-layout class="layout-item" justify-left v-for="i in content.items.content" :key="`${i}-item`" row wrap>
+      <p class="text-xs-left title">Recently Created</p>
+      <v-layout class="layout-item" justify-left v-for="i in content.items.content.slice().reverse().slice(0,5)" :key="`${i}-item`" row wrap>
         <v-flex xs8>
           <span class="text-xs-left name">{{i.name}}</span>
         </v-flex>
