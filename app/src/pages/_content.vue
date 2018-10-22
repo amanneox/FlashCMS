@@ -1,62 +1,55 @@
 <template lang="html">
-  <div class="">
-    <layoutheader/>
-    <v-content>
+<div class="">
+  <layoutheader />
+  <v-content>
     <v-container>
       <v-card>
-      <v-layout>
-        <p class="text-xs-left title main-title">Configure Content</p>
-      </v-layout>
-      <v-layout row wrap>
-        <v-flex md2 xs4 v-for="item in options" :key="item.name" class="layout-item-option">
-          <v-card  :class="`${item.name}-color`">
-          <p @click="dialog = true" @click.prevent="updateModel(item.name)" class="subheading name-text white--text">{{item.name}}</p>
-          </v-card>
-        </v-flex>
-      </v-layout>
-      <v-layout>
-        <p class="text-xs-left title main-title">Content Structure</p>
-      </v-layout>
+        <v-layout>
+          <p class="text-xs-left title main-title">Configure Content</p>
+        </v-layout>
+        <v-layout row wrap>
+          <v-flex md2 xs4 v-for="item in options" :key="item.name" class="layout-item-option">
+            <v-card :class="`${item.name}-color`">
+              <p @click="dialog = true" @click.prevent="updateModel(item.name)" class="subheading name-text white--text">{{item.name}}</p>
+            </v-card>
+          </v-flex>
+        </v-layout>
+        <v-layout>
+          <p class="text-xs-left title main-title">Content Structure</p>
+        </v-layout>
 
-    </v-card>
+      </v-card>
     </v-container>
   </v-content>
-  <v-dialog
-      v-model="dialog"
-      width="500"
-    >
-      <v-card>
-        <v-card-title
-          class="headline grey lighten-2"
-          primary-title
-        >
-          Create&nbsp;{{currentModel}}&nbsp;Field
-        </v-card-title>
-        <v-container>
-        <v-text-field v-if="ModelType" v-model="name" v-validate="'required'" name="name" dark flat clearable solo label="Field Name" required></v-text-field>
+  <v-dialog v-model="dialog" width="500">
+    <v-card>
+      <v-card-title class="headline grey lighten-2" primary-title>
+        Create&nbsp;{{currentModel}}&nbsp;Field
+      </v-card-title>
+      <v-container v-if="ModelType">
+        <v-text-field v-model="name" v-validate="'required'" name="name" dark flat clearable solo label="Field Name" required></v-text-field>
+      </v-container>
+      <v-container v-if="!ModelType">
+        <v-layout row wrap>
+          <v-select label="Current Content" solo disabled></v-select>
+        </v-layout>
+        <v-layout row wrap>
+          <v-select :items="options" label="Solo field" solo></v-select>
+        </v-layout>
+      </v-container>
+      <v-divider></v-divider>
 
-        </v-container>
-     <v-divider></v-divider>
-
-     <v-card-actions>
-       <v-spacer></v-spacer>
-       <v-btn
-         color="red"
-         class="white--text"
-         @click="dialog = false"
-       >
-       Cancel
-       </v-btn>
-       <v-btn
-         color="accent"
-         @click="dialog = false"
-         @click.prevent="$_emitData"
-       >
-       Create
-       </v-btn>
-     </v-card-actions>
-      </v-card>
-    </v-dialog>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="red" class="white--text" @click="dialog = false">
+          Cancel
+        </v-btn>
+        <v-btn color="accent" @click="dialog = false" @click.prevent="$_emitData">
+          Create
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </div>
 </template>
 
