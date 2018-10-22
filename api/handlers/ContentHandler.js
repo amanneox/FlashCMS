@@ -87,8 +87,8 @@ module.exports.createContent = (event, context, callback) => {
     const content = new ContentModel({
       _id: id,
       name: data.name,
-      subType: data.subType,
       type: data.type,
+      model: data.model
     })
 
 
