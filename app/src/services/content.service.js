@@ -51,8 +51,7 @@ async function update (content) {
       "Access-Control-Allow-Origin" : "*",
       "Access-Control-Allow-Credentials" : true
    },
-    name,
-    model
+    content
   }
 try {
   const res = await axios.post(`${config.apiUrl}/content/update/${content.id}`, requestOptions)

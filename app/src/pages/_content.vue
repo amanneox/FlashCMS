@@ -27,14 +27,14 @@
         Create&nbsp;{{currentModel}}&nbsp;Field
       </v-card-title>
       <v-container v-if="ModelType">
-        <v-text-field v-model="name" v-validate="'required'" name="name" dark flat clearable solo label="Field Name" required></v-text-field>
+        <v-text-field v-model="emitData.name" v-validate="'required'" name="name" dark flat clearable solo label="Field Name" required></v-text-field>
       </v-container>
       <v-container v-if="!ModelType">
         <v-layout row wrap>
-          <v-select label="Current Content" solo disabled></v-select>
+          <v-select v-model="emitData.current" label="Current Content" solo disabled></v-select>
         </v-layout>
         <v-layout row wrap>
-          <v-select :items="options" label="Solo field" solo></v-select>
+          <v-select v-model="emitData.relation" :items="options" label="Solo field" solo></v-select>
         </v-layout>
       </v-container>
       <v-divider></v-divider>
@@ -64,7 +64,12 @@ export default {
   data(){
     return{
       dialog: false,
-      name:'',
+      emitData:{
+        name:'',
+        current:'',
+        relation:'',
+        type:''
+      },
       currentModel:'',
       ModelType:true,
       options:[
@@ -78,6 +83,7 @@ export default {
     }
   },
   methods:{
+        ...mapActions('content', ['update']),
     updateModel(name){
       this.currentModel = name
       if (name=='Relation') {
@@ -88,7 +94,19 @@ export default {
       }
     },
     $_emitData(){
-      console.log(this.name)
+      if (this.ModelType) {
+        const content = {
+          model:{
+              item:{
+                type:this.currentModel,
+                  value:this.emitData.name,
+              },
+          },
+        id:this.$route.params.id
+        }
+        console.log(content)
+      //  this.update(this.content)
+      }
     }
   }
 }
