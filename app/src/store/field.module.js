@@ -1,26 +1,26 @@
-import { contentService } from '../services'
+import { fieldService } from '../services'
 
 const state = {
-  items: {},
+  field: {},
   request: {},
   current: {}
 }
 
 const actions = {
-  get_All ({ commit }) {
+  getFields ({ commit }, payload) {
     commit('get_AllRequest')
 
-    contentService.get_All()
+    fieldService.getFields(payload)
       .then(
-        content => {
-          commit('get_AllSuccess', content)
-          console.log(content, '######')
+        field => {
+          commit('get_AllSuccess', field)
+          console.log(field, '######')
         },
         error => commit('get_AllFailure', error)
       )
   },
   getById ({commit}) {
-    contentService.getById()
+    fieldService.getById()
       .then(
         current => {
           commit('getByIdSuccess', current)
@@ -29,16 +29,16 @@ const actions = {
         error => commit('get_AllFailure', error)
       )
   },
-  create ({commit}, payload) {
+  createField ({commit}, payload) {
     commit('createRequest')
-    contentService.create(payload)
+    fieldService.createField(payload)
       .then(
         commit('createSuccess', 'success'),
         error => commit('createFailure', error)
       )
   },
   update ({commit}, payload) {
-    contentService.update(payload)
+    fieldService.update(payload)
       .then(
         commit('createSuccess', 'success'),
         error => commit('createFailure', error)
@@ -47,9 +47,9 @@ const actions = {
   delete ({ commit }, id) {
     commit('deleteRequest', id)
 
-    contentService.delete(id)
+    fieldService.delete(id)
       .then(
-        content => commit('deleteSuccess', id),
+        field => commit('deleteSuccess', id),
         error => commit('deleteSuccess', { id, error: error.toString() })
       )
   }
@@ -68,8 +68,8 @@ const mutations = {
   get_AllRequest (state) {
     state.request = { loading: true }
   },
-  get_AllSuccess (state, content) {
-    state.items = { content }
+  get_AllSuccess (state, field) {
+    state.field = { ...field }
   },
   getByIdSuccess (state, data) {
     state.current = {data}
@@ -78,33 +78,33 @@ const mutations = {
     state.request = { error }
   },
   deleteRequest (state, id) {
-    // add 'deleting:true' property to content being deleted
-    state.content.items = state.content.items.map(content =>
-      content.id === id
-        ? { ...content, deleting: true }
-        : content
+    // add 'deleting:true' property to field being deleted
+    state.field.items = state.field.items.map(field =>
+      field.id === id
+        ? { ...field, deleting: true }
+        : field
     )
   },
   deleteSuccess (state, id) {
-    // remove deleted content from state
-    state.content.items = state.content.items.filter(content => content.id !== id)
+    // remove deleted field from state
+    state.field.items = state.field.items.filter(field => field.id !== id)
   },
   deleteFailure (state, { id, error }) {
-    // remove 'deleting:true' property and add 'deleteError:[error]' property to content
-    state.content.items = state.items.map(content => {
-      if (content.id === id) {
-        // make copy of content without 'deleting:true' property
-        const { deleting, ...contentCopy } = content
-        // return copy of content with 'deleteError:[error]' property
-        return { ...contentCopy, deleteError: error }
+    // remove 'deleting:true' property and add 'deleteError:[error]' property to field
+    state.field.items = state.items.map(field => {
+      if (field.id === id) {
+        // make copy of field without 'deleting:true' property
+        const { deleting, ...fieldCopy } = field
+        // return copy of field with 'deleteError:[error]' property
+        return { ...fieldCopy, deleteError: error }
       }
 
-      return content
+      return field
     })
   }
 }
 
-export const content = {
+export const field = {
   namespaced: true,
   state,
   actions,

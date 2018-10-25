@@ -5,6 +5,7 @@ import { alert } from './alert.module'
 import { account } from './account.module'
 import { users } from './users.module'
 import { content } from './content.module'
+import { field } from './field.module'
 
 Vue.use(Vuex)
 
@@ -14,6 +15,7 @@ export const store = new Vuex.Store({
     alert,
     account,
     users,
-    content
+    content,
+    field
   }
 })

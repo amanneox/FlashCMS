@@ -14,10 +14,35 @@
             </v-card>
           </v-flex>
         </v-layout>
-        <v-layout>
-          <p class="text-xs-left title main-title">Content Structure</p>
-        </v-layout>
+          <v-layout row wrap>
+          <v-flex xs12>
+              <p class="text-xs-left title main-title">Content Structure</p>
+          </v-flex>
+          <v-flex>
+            <v-list>
+         <v-list-group
+           v-for="f in field.field"
+           :key="f._id"
+           no-action
+         >
+           <v-list-tile slot="activator">
+             <v-list-tile-content>
+               <v-list-tile-title>{{ f.name }}</v-list-tile-title>
+             </v-list-tile-content>
+           </v-list-tile>
 
+           <v-list-tile
+             @click="">
+             <v-list-tile-content>
+               <v-list-tile-title>{{ f.value }}</v-list-tile-title>
+             </v-list-tile-content>
+
+           </v-list-tile>
+         </v-list-group>
+       </v-list>
+          </v-flex>
+
+        </v-layout>
       </v-card>
     </v-container>
   </v-content>
@@ -83,7 +108,7 @@ export default {
     }
   },
   methods:{
-    ...mapActions('content', ['createField']),
+    ...mapActions('field', ['createField','getFields']),
     updateModel(name){
       this.currentModel = name
       if (name=='Relation') {
@@ -103,6 +128,12 @@ export default {
         this.createField(field)
       }
     }
+  },
+  mounted(){
+    this.getFields(this.$route.params.id)
+  },
+  computed:{
+     ...mapState({field: 'field'}),
   }
 }
 </script>

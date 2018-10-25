@@ -34,7 +34,22 @@ module.exports.getField = (event, context, callback) => {
       .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
   ))
 }
-
+module.exports.getFields = (event, context, callback) => {
+  const id = event.pathParameters.id
+  dbConnectAndExecute(mongoString, () => (
+    FieldModel
+      .find({contentID: id})
+      .then(field => callback(null, {
+        statusCode: 200,
+        headers: {
+        'Field-Type': 'application/json',
+        "Access-Control-Allow-Origin" : "*",
+        "Access-Control-Allow-Credentials" : true
+      },
+        body: JSON.stringify(field) }))
+      .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
+  ))
+}
 module.exports.createField = (event, context, callback) => {
     const data = JSON.parse(event.body)
     const field = new  FieldModel({
