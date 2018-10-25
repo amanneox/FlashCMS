@@ -10,6 +10,12 @@ const model = mongoose.model('Category', {
     type: String,
     required: false,
   },
+  model:{
+      item:{
+        ctype: String,
+        value: String,
+      },
+  },
 
 })
 

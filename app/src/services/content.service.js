@@ -8,6 +8,7 @@ export const contentService = {
   get_All,
   getById,
   update,
+  createField,
   delete: _delete,
   create
 }
@@ -45,6 +46,7 @@ try {
   }
 
 async function update (content) {
+  console.log(content)
   const requestOptions = {
     headers: {
       'Content-Type': 'application/json',
@@ -54,7 +56,7 @@ async function update (content) {
     content
   }
 try {
-  const res = await axios.post(`${config.apiUrl}/content/update/${content.id}`, requestOptions)
+  const res = await axios.post(`${config.apiUrl}/content/put/${content.id}`, requestOptions)
   console.log(res.data)
 } catch (error) {
   return Promise.reject(error)
@@ -75,6 +77,24 @@ try {
   const res = await axios.post(`${config.apiUrl}/content/post/`, requestOptions)
   console.log(res.data)
 } catch (error) {
+  return Promise.reject(error)
+ }
+}
+
+async function createField (field) {
+  console.log(field)
+  const requestOptions = {
+    headers: {
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin" : "*",
+      "Access-Control-Allow-Credentials" : true
+   },
+    field
+  }
+try {
+  const res = await axios.post(`${config.apiUrl}/field/post/`, requestOptions)
+  console.log(res.data)
+  } catch (error) {
   return Promise.reject(error)
  }
 }

@@ -95,3 +95,11 @@ functions:
           path: item/put/{id}
           method: post
           cors: true
+
+  createField:
+     handler: handlers/FieldHandler.createField
+     events:
+       - http:
+           path: field/post
+           method: post
+           cors: true

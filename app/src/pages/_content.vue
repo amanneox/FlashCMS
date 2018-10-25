@@ -83,7 +83,7 @@ export default {
     }
   },
   methods:{
-        ...mapActions('content', ['update']),
+    ...mapActions('content', ['createField']),
     updateModel(name){
       this.currentModel = name
       if (name=='Relation') {
@@ -95,17 +95,12 @@ export default {
     },
     $_emitData(){
       if (this.ModelType) {
-        const content = {
-          model:{
-              item:{
-                type:this.currentModel,
-                  value:this.emitData.name,
-              },
-          },
-        id:this.$route.params.id
+        const field = {
+          name:this.currentModel,
+          value:this.emitData.name,
+          id:this.$route.params.id
         }
-        console.log(content)
-      //  this.update(this.content)
+        this.createField(field)
       }
     }
   }

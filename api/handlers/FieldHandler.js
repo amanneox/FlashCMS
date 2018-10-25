@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Promise = require('bluebird')
 const validator = require('validator')
-const ContentModel = require('../model/Content.js')
+const FieldModel = require('../model/Field.js')
 require('dotenv').config()
 mongoose.Promise = Promise;
 
@@ -9,7 +9,7 @@ const mongoString = process.env.MONGO_URI // MongoDB Url
 
 const createErrorResponse = (statusCode, message) => ({
   statusCode: statusCode || 501,
-  headers: { 'Content-Type': 'text/plain' },
+  headers: { 'Field-Type': 'text/plain' },
   body: message || 'Incorrect id',
 });
 
@@ -19,58 +19,59 @@ function dbConnectAndExecute(dbUrl, fn) {
   return dbExecute(mongoose.connect(dbUrl, { useMongoClient: true }), fn)
 }
 
-module.exports.getContent = (event, context, callback) => {
+module.exports.getField = (event, context, callback) => {
   dbConnectAndExecute(mongoString, () => (
-    ContentModel
+    FieldModel
       .find()
-      .then(content => callback(null, {
+      .then(field => callback(null, {
         statusCode: 200,
         headers: {
-        'Content-Type': 'application/json',
+        'Field-Type': 'application/json',
         "Access-Control-Allow-Origin" : "*",
         "Access-Control-Allow-Credentials" : true
       },
-        body: JSON.stringify(content) }))
+        body: JSON.stringify(field) }))
       .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
   ))
 }
 
-module.exports.createContent = (event, context, callback) => {
+module.exports.createField = (event, context, callback) => {
     const data = JSON.parse(event.body)
-    const content = new  ContentModel({
-      name: data.content,
-      type: data.type,
+    const field = new  FieldModel({
+      name: data.field.name,
+      contentID: data.field.id,
+      value: data.field.value,
     })
     console.log(data)
     dbConnectAndExecute(mongoString, () => (
-      content
+      field
         .save()
         .then(() => callback(null, {
           statusCode: 200,
           headers: {
-          'Content-Type': 'application/json',
+          'Field-Type': 'application/json',
           "Access-Control-Allow-Origin" : "*",
           "Access-Control-Allow-Credentials" : true
         },
-          body: JSON.stringify({ id: content.id }),
+          body: JSON.stringify({ id: field.id }),
         }))
         .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
     ))
   }
 
-  module.exports.deleteContent = (event, context, callback) => {
+  module.exports.deleteField = (event, context, callback) => {
     if (!validator.isAlphanumeric(event.pathParameters.id)) {
       callback(null, createErrorResponse(400, 'Incorrect id'))
       return
     }
 
     dbConnectAndExecute(mongoString, () => (
-      ContentModel
+      FieldModel
         .remove({ _id: event.pathParameters.id })
         .then(() => callback(null, {
            statusCode: 200,
            headers: {
-           'Content-Type': 'application/json',
+           'Field-Type': 'application/json',
            "Access-Control-Allow-Origin" : "*",
            "Access-Control-Allow-Credentials" : true
          },
@@ -79,23 +80,22 @@ module.exports.createContent = (event, context, callback) => {
     ))
   }
 
-  module.exports.updateContent = (event, context, callback) => {
+  module.exports.updateField = (event, context, callback) => {
     const data = JSON.parse(event.body)
     const id = event.pathParameters.id
 
 
-    const content = new ContentModel({
+    const field = new FieldModel({
       _id: id,
-      model: data.content.model
     })
 
 
     dbConnectAndExecute(mongoString, () => (
-      ContentModel.findByIdAndUpdate(id, content)
+      FieldModel.findByIdAndUpdate(id, field)
         .then(() => callback(null, {
            statusCode: 200,
            headers: {
-           'Content-Type': 'application/json',
+           'Field-Type': 'application/json',
            "Access-Control-Allow-Origin" : "*",
            "Access-Control-Allow-Credentials" : true
          },

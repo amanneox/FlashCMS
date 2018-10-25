@@ -37,6 +37,21 @@ const actions = {
         error => commit('createFailure', error)
       )
   },
+  createField ({commit}, payload) {
+    commit('createRequest')
+    contentService.createField(payload)
+      .then(
+        commit('createSuccess', 'success'),
+        error => commit('createFailure', error)
+      )
+  },
+  update ({commit}, payload) {
+    contentService.update(payload)
+      .then(
+        commit('createSuccess', 'success'),
+        error => commit('createFailure', error)
+      )
+  },
   delete ({ commit }, id) {
     commit('deleteRequest', id)
 
