@@ -6,6 +6,7 @@
       <v-card>
         <v-layout>
           <p class="text-xs-left title main-title">Configure Content</p>
+          <v-btn :to="`edit/${this.$route.params.id}`" color="accent" class="edit-btn"><v-icon dark>edit</v-icon>Edit</v-btn>
         </v-layout>
         <v-layout row wrap>
           <v-flex md2 xs4 v-for="item in options" :key="item.name" class="layout-item-option">
@@ -31,8 +32,7 @@
              </v-list-tile-content>
            </v-list-tile>
 
-           <v-list-tile
-             @click="">
+           <v-list-tile>
              <v-list-tile-content>
                <v-list-tile-title>{{ f.value }}</v-list-tile-title>
              </v-list-tile-content>
@@ -183,5 +183,8 @@ background: linear-gradient(to right, #F09819, #FF512F); /* W3C, IE 10+/ Edge, F
 }
 .layout-item-option{
   padding: 12px;
+}
+.edit-btn{
+
 }
 </style>

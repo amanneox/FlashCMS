@@ -15,14 +15,25 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import vueFilePond from 'vue-filepond'
+
+// Import FilePond styles
+import 'filepond/dist/filepond.min.css'
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
+
+// Import image preview and file type validation plugins
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
+
+// Create component
+const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview)
 Vue.use(Vuetify, {
   theme: {
     primary: '#1C2541',
     secondary: '#1481BA',
     accent: '#11B5E4',
-    error: '#4E92DB',
     light: '0CAADC',
-    secondary2: '034748'
+    secondary2: '#034748'
   }
 })
 Vue.use(VueAxios, axios)
@@ -37,6 +48,7 @@ library.add(fas.faCoffee, fas.faUserCircle, fas.faCompass, fas.faBoxOpen, fas.fa
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('file-pound', FilePond)
 Vue.config.productionTip = false
 Vue.use(Vuex)
 /* eslint-disable no-new */
