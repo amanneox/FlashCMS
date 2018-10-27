@@ -1,25 +1,25 @@
-import { contentService } from '../services'
+import { itemService } from '../services'
 
 const state = {
-  items: {},
+  item: {},
   request: {},
   current: {}
 }
 
 const actions = {
-  get_All ({ commit }) {
+  getItems ({ commit }, payload) {
     commit('get_AllRequest')
 
-    contentService.get_All()
+    itemService.getItems(payload)
       .then(
-        content => {
-          commit('get_AllSuccess', content)
+        item => {
+          commit('get_AllSuccess', item)
         },
         error => commit('get_AllFailure', error)
       )
   },
   getById ({commit}) {
-    contentService.getById()
+    itemService.getById()
       .then(
         current => {
           commit('getByIdSuccess', current)
@@ -27,16 +27,16 @@ const actions = {
         error => commit('get_AllFailure', error)
       )
   },
-  create ({commit}, payload) {
+  createItem ({commit}, payload) {
     commit('createRequest')
-    contentService.create(payload)
+    itemService.createItem(payload)
       .then(
         commit('createSuccess', 'success'),
         error => commit('createFailure', error)
       )
   },
   update ({commit}, payload) {
-    contentService.update(payload)
+    itemService.update(payload)
       .then(
         commit('createSuccess', 'success'),
         error => commit('createFailure', error)
@@ -45,9 +45,9 @@ const actions = {
   delete ({ commit }, id) {
     commit('deleteRequest', id)
 
-    contentService.delete(id)
+    itemService.delete(id)
       .then(
-        content => commit('deleteSuccess', id),
+        item => commit('deleteSuccess', id),
         error => commit('deleteSuccess', { id, error: error.toString() })
       )
   }
@@ -66,8 +66,8 @@ const mutations = {
   get_AllRequest (state) {
     state.request = { loading: true }
   },
-  get_AllSuccess (state, content) {
-    state.items = { content }
+  get_AllSuccess (state, item) {
+    state.items = { item }
   },
   getByIdSuccess (state, data) {
     state.current = {data}
@@ -76,33 +76,33 @@ const mutations = {
     state.request = { error }
   },
   deleteRequest (state, id) {
-    // add 'deleting:true' property to content being deleted
-    state.content.items = state.content.items.map(content =>
-      content.id === id
-        ? { ...content, deleting: true }
-        : content
+    // add 'deleting:true' property to item being deleted
+    state.item.items = state.item.items.map(item =>
+      item.id === id
+        ? { ...item, deleting: true }
+        : item
     )
   },
   deleteSuccess (state, id) {
-    // remove deleted content from state
-    state.content.items = state.content.items.filter(content => content.id !== id)
+    // remove deleted item from state
+    state.items.item = state.items.item.filter(item => item.id !== id)
   },
   deleteFailure (state, { id, error }) {
-    // remove 'deleting:true' property and add 'deleteError:[error]' property to content
-    state.content.items = state.items.map(content => {
-      if (content.id === id) {
-        // make copy of content without 'deleting:true' property
-        const { deleting, ...contentCopy } = content
-        // return copy of content with 'deleteError:[error]' property
-        return { ...contentCopy, deleteError: error }
+    // remove 'deleting:true' property and add 'deleteError:[error]' property to item
+    state.items.item = state.items.map(item => {
+      if (item.id === id) {
+        // make copy of item without 'deleting:true' property
+        const { deleting, ...itemCopy } = item
+        // return copy of item with 'deleteError:[error]' property
+        return { ...itemCopy, deleteError: error }
       }
 
-      return content
+      return item
     })
   }
 }
 
-export const content = {
+export const item = {
   namespaced: true,
   state,
   actions,

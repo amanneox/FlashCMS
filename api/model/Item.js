@@ -2,11 +2,10 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const Schema = mongoose.Schema
 const model = mongoose.model('Item', {
-  data: {
-    type: String,
-    required: true
-  },
-  FieldID: {
+  data: [{
+  
+  }],
+  contentID: {
     type:Schema.ObjectId,
     required: true
   },

@@ -30,23 +30,23 @@ module.exports.getItem= (event, context, callback) => {
 
 module.exports.createItem= (event, context, callback) => {
     const data = JSON.parse(event.body)
-    const id = event.pathParameters.id;
+    const id = event.pathParameters.id
     const item= new  ItemModel({
-      name: data.name,
-      description: data.description,
-      value: data.value,
-      image: data.image,
-      thumbnail: data.thumbnail,
-      categoryID: id
-
+      data:data,
+      contentID: id
     })
 
     dbConnectAndExecute(mongoString, () => (
-      category
+      item
         .save()
         .then(() => callback(null, {
           statusCode: 200,
-          body: JSON.stringify({ id: category.id }),
+          headers: {
+          'Field-Type': 'application/json',
+          "Access-Control-Allow-Origin" : "*",
+          "Access-Control-Allow-Credentials" : true
+        },
+          body: JSON.stringify({ id: item.id }),
         }))
         .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
     ))
@@ -65,7 +65,22 @@ module.exports.createItem= (event, context, callback) => {
         .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
     ))
   }
-
+  module.exports.getItems = (event, context, callback) => {
+    const id = event.pathParameters.id
+    dbConnectAndExecute(mongoString, () => (
+      ItemModel
+        .find({contentID: id})
+        .then(field => callback(null, {
+          statusCode: 200,
+          headers: {
+          'Field-Type': 'application/json',
+          "Access-Control-Allow-Origin" : "*",
+          "Access-Control-Allow-Credentials" : true
+        },
+          body: JSON.stringify(field) }))
+        .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
+    ))
+  }
   module.exports.updateItem= (event, context, callback) => {
     const data = JSON.parse(event.body)
     const id = event.pathParameters.id

@@ -57,7 +57,7 @@ module.exports.createField = (event, context, callback) => {
       contentID: data.field.id,
       value: data.field.value,
     })
-    console.log(data)
+  
     dbConnectAndExecute(mongoString, () => (
       field
         .save()

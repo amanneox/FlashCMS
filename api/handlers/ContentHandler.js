@@ -41,7 +41,7 @@ module.exports.createContent = (event, context, callback) => {
       name: data.content,
       type: data.type,
     })
-    console.log(data)
+  
     dbConnectAndExecute(mongoString, () => (
       content
         .save()

@@ -72,11 +72,11 @@ functions:
           method: get
           cors: true
 
-  getItem:
-    handler: handlers/ItemHandler.getItem
+  getItems:
+    handler: handlers/ItemHandler.getItems
     events:
       - http:
-          path: item/list
+          path: item/get/{id}
           method: get
           cors: true
 

@@ -45,14 +45,14 @@ module.exports.user = (event, context, callback) => {
 
 module.exports.authenticate = (event ,context , callback) =>{
   const data = JSON.parse(event.body)
-  console.log(data)
+
   const res = dbConnectAndExecute(mongoString, () => (
     UserModel
       .find({ email: data.email })
       .then(function(value) {
         if (value != []) {
           const userhash = unhash(data.password,value[0].salt)
-          console.log(userhash)
+
           if (value[0].password == userhash.passwordHash) {
             const jwttoken = token(value[0])
 

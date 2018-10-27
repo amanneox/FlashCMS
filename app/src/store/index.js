@@ -6,7 +6,7 @@ import { account } from './account.module'
 import { users } from './users.module'
 import { content } from './content.module'
 import { field } from './field.module'
-
+import { item } from './item.module'
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
@@ -16,6 +16,7 @@ export const store = new Vuex.Store({
     account,
     users,
     content,
-    field
+    field,
+    item
   }
 })

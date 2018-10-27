@@ -14,7 +14,6 @@ const actions = {
       .then(
         field => {
           commit('get_AllSuccess', field)
-          console.log(field, '######')
         },
         error => commit('get_AllFailure', error)
       )
@@ -24,7 +23,6 @@ const actions = {
       .then(
         current => {
           commit('getByIdSuccess', current)
-          console.log(current)
         },
         error => commit('get_AllFailure', error)
       )

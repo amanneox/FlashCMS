@@ -7,7 +7,8 @@ import Profile from '@/pages/profile'
 import Manage from '@/pages/contentManager'
 import Create from '@/pages/addComponent'
 import _Content from '@/pages/_content'
-import _Edit from '@/pages/_edit'
+// import _Edit from '@/pages/_edit'
+import _ViewItem from '@/pages/_viewItem'
 Vue.use(Router)
 
 export default new Router({
@@ -48,9 +49,9 @@ export default new Router({
       component: _Content
     },
     {
-      path: '/manage/edit/:id',
-      name: 'Edit',
-      component: _Edit
+      path: '/manage/view/:id',
+      name: 'View',
+      component: _ViewItem
     }
   ]
 })
