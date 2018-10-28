@@ -10,7 +10,7 @@
               <v-icon dark>add</v-icon>Create
             </v-btn>
           </v-flex>
-          <v-flex v-for="i in pages" :key="`${i._id}-item`" xs4 class="content-box">
+          <v-flex v-for="i in pages" :key="`${i._id}-item`" xs12 md4 class="content-box">
             <v-card class="layout-item item">
               <v-container>
                 <v-layout>

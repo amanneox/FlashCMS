@@ -9,6 +9,7 @@ import Create from '@/pages/addComponent'
 import _Content from '@/pages/_content'
 // import _Edit from '@/pages/_edit'
 import _ViewItem from '@/pages/_viewItem'
+import Settings from '@/pages/settings'
 Vue.use(Router)
 
 export default new Router({
@@ -32,6 +33,11 @@ export default new Router({
       path: '/profile',
       name: 'Profile',
       component: Profile
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: Settings
     },
     {
       path: '/manage',

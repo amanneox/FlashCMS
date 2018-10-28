@@ -5,7 +5,7 @@
   <v-container>
     <v-card>
       <v-layout class="main-content" row wrap>
-        <v-flex v-for="i in pages" :key="`${i._id}-item`" xs4 class="content-box">
+        <v-flex v-for="i in pages" :key="`${i._id}-item`" xs12 md4 class="content-box">
           <v-card class="layout-item item">
             <v-container>
               <v-layout>
