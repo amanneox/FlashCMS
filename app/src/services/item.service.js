@@ -64,17 +64,17 @@ try {
 }
 
 async function createItem (item) {
-
+//  console.log(Object.assign({}, item.data))
   const requestOptions = {
     headers: {
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin" : "*",
       "Access-Control-Allow-Credentials" : true
    },
-    item
+    item:Object.assign({}, item.data)
   }
 try {
-  const res = await axios.post(`${config.apiUrl}/item/post/`, requestOptions)
+ const res = await axios.post(`${config.apiUrl}/item/post/${item.id}`, requestOptions)
 
   } catch (error) {
   return Promise.reject(error)

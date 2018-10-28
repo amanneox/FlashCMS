@@ -14,7 +14,7 @@
             <v-card class="layout-item item">
               <v-container>
                 <v-layout>
-                  <p class="layout-name subheading">{{i.name}}</p>
+                  <p class="layout-name subheading">{{i.data.name}}</p>
                 </v-layout>
                 <v-layout>
                   <p>{{i._id}}</p>
@@ -38,11 +38,11 @@
         <v-flex class="item-col" v-for="item in field.field" :key="item._id" xs6>
           <p class="text-xs-left subheading">{{item.name}}&nbsp;Field</p>
           <p class="text-xs-left subheading">{{item.value}}</p>
-          <v-text-field v-if="`${item.name}`=='Text'" :label="`${item.value}`" dark flat disable solo></v-text-field>
-          <v-text-field v-if="`${item.name}`=='Number'" :label="`${item.value}`" dark flat disable solo></v-text-field>
-          <v-text-field v-if="`${item.name}`=='Boolean'" :label="`${item.value}`" dark flat disable solo></v-text-field>
-          <v-textarea v-if="`${item.name}`==='String'" :label="`${item.value}`" dark flat disable solo></v-textarea>
-          <file-pond v-if="`${item.name}`==='Image'" name="test" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" server="/api" v-on:init="handleFilePondInit" />
+          <v-text-field v-model="form.form_data[item.value]" v-if="`${item.name}`=='Text'" :label="`${item.value}`" dark flat disable solo></v-text-field>
+          <v-text-field v-model="form.form_data[item.value]" v-if="`${item.name}`=='Number'" :label="`${item.value}`" dark flat disable solo></v-text-field>
+          <v-text-field v-model="form.form_data[item.value]" v-if="`${item.name}`=='Boolean'" :label="`${item.value}`" dark flat disable solo></v-text-field>
+          <v-textarea v-model="form.form_data[item.value]" v-if="`${item.name}`==='String'" :label="`${item.value}`" dark flat disable solo></v-textarea>
+          <file-pond v-model="form.form_data[item.value]" v-if="`${item.name}`==='Image'" name="test" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" server="/api" v-on:init="handleFilePondInit" />
         </v-flex>
       </v-layout>
       <v-layout>
@@ -72,6 +72,9 @@ export default {
        itemsPerPage: 12,
        resultCount: 0,
        maxVisibleButtons: 4,
+       form:{
+         form_data:[]
+       }
     }
   },
   watch: {
@@ -91,8 +94,12 @@ export default {
          console.log('FilePond has initialized')
        },
        $_emitdata(){
-
-      //     console.log(this.$refs)
+      //   console.log(this.form.form_data)
+         const item = {
+           id:this.$route.params.id,
+           data:this.form.form_data
+         }
+         this.createItem(item)
 
        }
 },
@@ -110,7 +117,7 @@ export default {
     for (let i = this.startPage;
          i < Math.min(this.startPage + this.itemsPerPage);
          i+= 1 ) {
-        const item = this.item.item[i]
+        const item = this.item.items.item[i]
           if (typeof item != 'undefined') {
             range.push({
               ...item
@@ -178,6 +185,9 @@ export default {
  }
  .item-col{
    padding: 12px;
+ }
+ .edit-icon{
+   float: right !important;
  }
  .v-text-field__slot,.v-input__slot,textarea{
  background-color: #E0E0E0 !important;

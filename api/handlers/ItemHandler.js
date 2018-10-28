@@ -31,8 +31,9 @@ module.exports.getItem= (event, context, callback) => {
 module.exports.createItem= (event, context, callback) => {
     const data = JSON.parse(event.body)
     const id = event.pathParameters.id
+    console.log(data)
     const item= new  ItemModel({
-      data:data,
+      data:data.item,
       contentID: id
     })
 
