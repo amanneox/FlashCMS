@@ -53,7 +53,7 @@ async function update (item) {
       "Access-Control-Allow-Origin" : "*",
       "Access-Control-Allow-Credentials" : true
    },
-    item
+    item:Object.assign({}, item.data)
   }
 try {
   const res = await axios.post(`${config.apiUrl}/item/put/${item.id}`, requestOptions)

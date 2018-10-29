@@ -86,14 +86,18 @@ export default {
 },
   methods:{
       ...mapActions('field', ['createField','getFields']),
-     ...mapActions('item', ['createItem','getItems']),
+      ...mapActions('item', ['createItem','getItems','update']),
       handleFilePondInit: function() {
          console.log('FilePond has initialized')
        },
        $_emitdata(){
       //   console.log(this.form.form_data)
           if (this.form.itemID) {
-            console.log(this.form.itemID)
+            const item = {
+              id:this.form.itemID,
+              data:this.form.form_data
+            }
+            this.update(item)
           }
           else {
             const item = {

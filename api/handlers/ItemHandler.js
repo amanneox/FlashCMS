@@ -86,21 +86,21 @@ module.exports.createItem= (event, context, callback) => {
     const data = JSON.parse(event.body)
     const id = event.pathParameters.id
 
-
     const item= new ItemModel({
-      _id: id,
-      name: data.name,
-      description: data.description,
-      value: data.value,
-      image: data.image,
-      thumbnail: data.thumbnail,
-      categoryID: data.categoryID
+      _id:id,
+      data:data.item,
     })
 
 
     dbConnectAndExecute(mongoString, () => (
-      UserModel.findByIdAndUpdate(id, user)
-        .then(() => callback(null, { statusCode: 200, body: JSON.stringify('Ok') }))
+      ItemModel.findByIdAndUpdate(id, item)
+        .then(() => callback(null, { statusCode: 200,
+          headers: {
+          'Field-Type': 'application/json',
+          "Access-Control-Allow-Origin" : "*",
+          "Access-Control-Allow-Credentials" : true
+        },
+         body: JSON.stringify('Ok') }))
         .catch(err => callback(err, createErrorResponse(err.statusCode, err.message)))
     ))
   }
