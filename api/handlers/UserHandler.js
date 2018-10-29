@@ -93,7 +93,7 @@ module.exports.authenticate = (event ,context , callback) =>{
 module.exports.createUser = (event, context, callback) => {
   const data = JSON.parse(event.body)
   const hashkey = hash(data.password)
-  console.log(hashkey)
+
   const user = new UserModel({
     name: data.name,
     city: data.city,
@@ -104,7 +104,7 @@ module.exports.createUser = (event, context, callback) => {
     salt: hashkey.salt
   })
 
-  console.log(user)
+  
 
   dbConnectAndExecute(mongoString, () => (
     user

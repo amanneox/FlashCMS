@@ -38,7 +38,7 @@ async function getById (id) {
   }
 try {
   const res = await axios.get(`${config.apiUrl}/field/get/${id}`)
-  console.log(res.data)
+
   return res.data
 } catch (error) {
     return Promise.reject(error)
@@ -46,7 +46,7 @@ try {
   }
 
 async function update (field) {
-  console.log(field)
+
   const requestOptions = {
     headers: {
       'Content-Type': 'application/json',
@@ -57,14 +57,14 @@ async function update (field) {
   }
 try {
   const res = await axios.post(`${config.apiUrl}/field/put/${field.id}`, requestOptions)
-  console.log(res.data)
+
 } catch (error) {
   return Promise.reject(error)
 }
 }
 
 async function createField (field) {
-  console.log(field)
+
   const requestOptions = {
     headers: {
       'Content-Type': 'application/json',
@@ -75,13 +75,13 @@ async function createField (field) {
   }
 try {
   const res = await axios.post(`${config.apiUrl}/field/post/`, requestOptions)
-  console.log(res.data)
+
   } catch (error) {
   return Promise.reject(error)
  }
 }
 async function getFields(field) {
-  console.log(field)
+
   const requestOptions = {
     headers: {
       'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ async function getFields(field) {
   }
   try {
     const res = await axios.get(`${config.apiUrl}/field/get/${field}`)
-    console.log(res.data)
+  
     return res.data
     } catch (error) {
     return Promise.reject(error)

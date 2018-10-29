@@ -93,7 +93,7 @@ async function getById (id) {
   }
 try {
   const res = await axios.get(`${config.apiUrl}/user/${id}`, requestOptions)
-  console.log(res.data)
+  
   return res.data
 } catch (error) {
     return Promise.reject(error)
@@ -121,7 +121,7 @@ function _delete (id) {
 }
 
 async function handleResponse (response) {
-  console.log(response.data)
+
   return await response.data.text().then(text => {
     const data = text && JSON.parse(text)
     if (!response.data) {

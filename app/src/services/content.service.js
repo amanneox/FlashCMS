@@ -37,7 +37,7 @@ async function getById (id) {
   }
 try {
   const res = await axios.get(`${config.apiUrl}/content/get/${id}`)
-  console.log(res.data)
+
   return res.data
 } catch (error) {
     return Promise.reject(error)
@@ -45,7 +45,7 @@ try {
   }
 
 async function update (content) {
-  console.log(content)
+
   const requestOptions = {
     headers: {
       'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ async function update (content) {
   }
 try {
   const res = await axios.post(`${config.apiUrl}/content/put/${content.id}`, requestOptions)
-  console.log(res.data)
+
 } catch (error) {
   return Promise.reject(error)
 }
@@ -71,10 +71,10 @@ async function create (content) {
    },
     content
   }
-  console.log(content)
+
 try {
   const res = await axios.post(`${config.apiUrl}/content/post/`, requestOptions)
-  console.log(res.data)
+
 } catch (error) {
   return Promise.reject(error)
  }

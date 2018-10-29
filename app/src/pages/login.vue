@@ -56,7 +56,7 @@ methods:{
       }
       else {
         if (email && password) {
-            console.log(email)
+          
             this.login({ email,password })
         }
       }

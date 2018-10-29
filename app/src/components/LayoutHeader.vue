@@ -122,7 +122,6 @@ export default {
   methods: {
     ...mapActions('account', ['login', 'logout']),
     $_logout () {
-      console.log('logout')
       this.logout()
     }
   }
