@@ -16,7 +16,6 @@ import 'vuetify/dist/vuetify.min.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import vueFilePond from 'vue-filepond'
-
 // Import FilePond styles
 import 'filepond/dist/filepond.min.css'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'

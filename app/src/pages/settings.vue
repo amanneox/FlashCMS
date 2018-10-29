@@ -18,6 +18,7 @@
               hide-details
             ></v-switch>
             <v-btn
+            @click="dialog = true"
             v-if="`${item.type}`=='button'"
             class="setting-button"
             color="error"
@@ -31,6 +32,32 @@
       </v-card>
     </v-container>
   </v-content>
+  <v-dialog
+  v-model="dialog"
+  max-width="290"
+>
+  <v-card>
+    <v-card-title class="headline">Are you sure you want to clear cache?</v-card-title>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn
+        color="green darken-1"
+        flat="flat"
+        @click="dialog = false"
+      >
+        Cancel
+      </v-btn>
+      <v-btn
+        @click.prevent="$_emitdata"
+        color="red darken-1"
+        flat="flat"
+        @click="dialog = false"
+      >
+        Clear
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+</v-dialog>
 </div>
 </template>
 
@@ -44,6 +71,7 @@ export default {
   },
   data(){
     return{
+      dialog:false,
       settings:[
         {name:'notifications',type:'switch',icon:'bell'},
         {name:'feedback',type:'switch',icon:'comments'},

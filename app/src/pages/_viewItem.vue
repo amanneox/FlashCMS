@@ -6,7 +6,7 @@
       <v-card>
         <v-layout class="main-content" row wrap>
           <v-flex xs12>
-            <v-btn @click="dialog = true" class="plus-icon" dark color="accent">
+            <v-btn @click.prevent="clear()" @click="dialog = true" class="plus-icon" dark color="accent">
               <v-icon dark>add</v-icon>Create
             </v-btn>
           </v-flex>
@@ -14,12 +14,9 @@
             <v-card class="layout-item item">
               <v-container>
                 <v-layout>
-                  <p class="layout-name subheading">{{i.data.name}}</p>
+                  <p class="text-xs-left subheading">{{i.data}}</p>
                 </v-layout>
-                <v-layout>
-                  <p>{{i._id}}</p>
-                </v-layout>
-                <v-btn @click="dialog = true" icon class="edit-icon" small fab dark color="accent">
+                <v-btn @click="dialog = true" @click.prevent="$_update(i)" icon class="edit-icon" small fab dark color="accent">
                   <v-icon dark>edit</v-icon>
                 </v-btn>
               </v-container>
@@ -95,12 +92,25 @@ export default {
        },
        $_emitdata(){
       //   console.log(this.form.form_data)
-         const item = {
-           id:this.$route.params.id,
-           data:this.form.form_data
-         }
-         this.createItem(item)
+          if (this.form.itemID) {
+            console.log(this.form.itemID)
+          }
+          else {
+            const item = {
+              id:this.$route.params.id,
+              data:this.form.form_data
+            }
+            this.createItem(item)
 
+          }
+
+       },
+       $_update(item){
+         this.form.form_data = item.data
+         this.form.itemID = item._id
+       },
+       clear(){
+         this.form.form_data = []
        }
 },
   mounted(){
@@ -235,4 +245,5 @@ export default {
       transform: rotate(360deg);
     }
   }
+
 </style>
