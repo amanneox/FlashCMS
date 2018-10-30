@@ -43,7 +43,8 @@ library.add(fas.faCoffee, fas.faUserCircle, fas.faCompass, fas.faBoxOpen, fas.fa
   , fas.faUser, fas.faFileContract, fas.faQuestionCircle, fas.faTimes, fas.faFilter, fas.faSortAmountDown,
   fas.faSearch, fas.faArrowRight,
   fas.faShare, fas.faTrash, fas.faPlusSquare, fas.faMinusSquare, fas.faEdit, fas.faSignOutAlt, fas.faPlug, fas.faSlidersH,
-  fas.faFile, fas.faUser, fas.faPowerOff, fas.faPlus, fas.faAngleLeft, fas.faBell, fas.faComments, fas.faDatabase
+  fas.faFile, fas.faUser, fas.faPowerOff, fas.faPlus, fas.faAngleLeft, fas.faBell, fas.faComments, fas.faDatabase,
+  fas.faTrash
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

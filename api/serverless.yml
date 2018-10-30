@@ -88,6 +88,14 @@ functions:
           method: post
           cors: true
 
+  deleteItem:
+    handler: handlers/ItemHandler.deleteItem
+    events:
+      - http:
+          path: item/delete/{id}
+          method: get
+          cors: true
+
   updateItem:
     handler: handlers/ItemHandler.updateItem
     events:

@@ -10,7 +10,7 @@ export const itemService = {
   update,
   createItem,
   getItems,
-  delete: _delete,
+  _delete,
 }
 async function get_All () {
   const requestOptions = {
@@ -99,7 +99,6 @@ async function getItems(item) {
 }
 async function _delete (id) {
   const requestOptions = {
-    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin" : "*",
@@ -107,7 +106,7 @@ async function _delete (id) {
    },
   }
 try {
-  const res = await axios.get(`${config.apiUrl}/item/delete/${id}`, requestOptions)
+  const res = await axios.get(`${config.apiUrl}/item/delete/${id}`)
 } catch (error) {
   return Promise.reject(error)
 }

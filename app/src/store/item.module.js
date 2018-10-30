@@ -42,10 +42,10 @@ const actions = {
         error => commit('createFailure', error)
       )
   },
-  delete ({ commit }, id) {
+  _delete ({ commit }, id) {
     commit('deleteRequest', id)
 
-    itemService.delete(id)
+    itemService._delete(id)
       .then(
         item => commit('deleteSuccess', id),
         error => commit('deleteSuccess', { id, error: error.toString() })
@@ -77,7 +77,8 @@ const mutations = {
   },
   deleteRequest (state, id) {
     // add 'deleting:true' property to item being deleted
-    state.item.items = state.item.items.map(item =>
+
+    state.items.item = state.items.item.map(item =>
       item.id === id
         ? { ...item, deleting: true }
         : item
@@ -89,7 +90,7 @@ const mutations = {
   },
   deleteFailure (state, { id, error }) {
     // remove 'deleting:true' property and add 'deleteError:[error]' property to item
-    state.items.item = state.items.map(item => {
+    state.items.item = state.items.item.map(item => {
       if (item.id === id) {
         // make copy of item without 'deleting:true' property
         const { deleting, ...itemCopy } = item

@@ -31,7 +31,7 @@ module.exports.getItem= (event, context, callback) => {
 module.exports.createItem= (event, context, callback) => {
     const data = JSON.parse(event.body)
     const id = event.pathParameters.id
-  
+
     const item= new  ItemModel({
       data:data.item,
       contentID: id
@@ -62,7 +62,13 @@ module.exports.createItem= (event, context, callback) => {
     dbConnectAndExecute(mongoString, () => (
       ItemModel
         .remove({ _id: event.pathParameters.id })
-        .then(() => callback(null, { statusCode: 200, body: JSON.stringify('Ok') }))
+        .then(() => callback(null, { statusCode: 200,
+          headers: {
+          'Field-Type': 'application/json',
+          "Access-Control-Allow-Origin" : "*",
+          "Access-Control-Allow-Credentials" : true
+        },
+        body: JSON.stringify('Ok') }))
         .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
     ))
   }

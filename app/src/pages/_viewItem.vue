@@ -12,6 +12,9 @@
           </v-flex>
           <v-flex v-for="i in pages" :key="`${i._id}-item`" xs12 md4 class="content-box">
             <v-card class="layout-item item">
+              <v-btn @click.prevent="$_remove(i._id)" class="trash-btn" icon>
+                <font-awesome-icon class="trash-icon" icon="trash" size="lg" />
+              </v-btn>
               <v-container>
                 <v-layout>
                   <p class="text-xs-left subheading">{{i.data}}</p>
@@ -86,7 +89,7 @@ export default {
 },
   methods:{
       ...mapActions('field', ['createField','getFields']),
-      ...mapActions('item', ['createItem','getItems','update']),
+      ...mapActions('item', ['createItem','getItems','update','_delete']),
       handleFilePondInit: function() {
          console.log('FilePond has initialized')
        },
@@ -115,6 +118,9 @@ export default {
        },
        clear(){
          this.form.form_data = []
+       },
+       $_remove(id){
+         this._delete(id)
        }
 },
   mounted(){
@@ -187,6 +193,17 @@ export default {
 .name{
   padding: 12px;
   float: left;
+}
+.trash-icon{
+  float: right;
+    color: #757575;
+}
+.trash-btn{
+  float: right;
+  margin: 18px;
+}
+.trash-icon:hover{
+  color: #212121;
 }
 .plus-icon{
   float: right !important;
