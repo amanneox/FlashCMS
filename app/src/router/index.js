@@ -10,6 +10,7 @@ import _Content from '@/pages/_content'
 // import _Edit from '@/pages/_edit'
 import _ViewItem from '@/pages/_viewItem'
 import Settings from '@/pages/settings'
+import Users from '@/pages/users'
 Vue.use(Router)
 
 export default new Router({
@@ -38,6 +39,11 @@ export default new Router({
       path: '/settings',
       name: 'Settings',
       component: Settings
+    },
+    {
+      path: '/users',
+      name: 'Users',
+      component: Users
     },
     {
       path: '/manage',
