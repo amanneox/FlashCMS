@@ -16,6 +16,14 @@ functions:
           method: post
           cors: true
 
+  getUsers:
+    handler: handlers/UserHandler.getUsers
+    events:
+     - http:
+         path: user/list
+         method: get
+         cors: true
+
   authenticate:
     handler: handlers/UserHandler.authenticate
     events:

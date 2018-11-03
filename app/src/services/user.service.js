@@ -45,7 +45,19 @@ catch (error) {
 }
 
 async function get_All(){
-
+  const requestOptions = {
+    headers: {
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin" : "*",
+      "Access-Control-Allow-Credentials" : true
+   },
+  }
+try {
+  const res = await axios.get(`${config.apiUrl}/user/list`)
+  return res.data
+} catch (error) {
+    return Promise.reject(error)
+}
 }
 
 function logout () {
@@ -93,7 +105,7 @@ async function getById (id) {
   }
 try {
   const res = await axios.get(`${config.apiUrl}/user/${id}`, requestOptions)
-  
+
   return res.data
 } catch (error) {
     return Promise.reject(error)

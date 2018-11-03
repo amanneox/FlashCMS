@@ -23,6 +23,21 @@ function dbConnectAndExecute(dbUrl, fn) {
   return dbExecute(mongoose.connect(dbUrl, { useMongoClient: true }), fn);
 }
 
+module.exports.getUsers = (event, context, callback) => {
+  dbConnectAndExecute(mongoString, () => (
+    UserModel
+      .find()
+      .then(user => callback(null, { statusCode: 200,
+        headers: {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin" : "*",
+        "Access-Control-Allow-Credentials" : true
+      },
+        body: JSON.stringify(user) }))
+      .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
+  ))
+}
+
 module.exports.user = (event, context, callback) => {
   if (!validator.isAlphanumeric(event.pathParameters.id)) {
     callback(null, createErrorResponse(400, 'Incorrect id'));
@@ -104,7 +119,7 @@ module.exports.createUser = (event, context, callback) => {
     salt: hashkey.salt
   })
 
-  
+
 
   dbConnectAndExecute(mongoString, () => (
     user
