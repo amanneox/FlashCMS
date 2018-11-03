@@ -38,10 +38,10 @@
         <v-flex class="item-col" v-for="item in field.field" :key="item._id" xs6>
           <p class="text-xs-left subheading">{{item.name}}&nbsp;Field</p>
           <p class="text-xs-left subheading">{{item.value}}</p>
-          <v-text-field v-model="form.form_data[item.value]" v-if="`${item.name}`=='Text'" :label="`${item.value}`" dark flat disable solo></v-text-field>
-          <v-text-field v-model="form.form_data[item.value]" v-if="`${item.name}`=='Number'" :label="`${item.value}`" dark flat disable solo></v-text-field>
-          <v-text-field v-model="form.form_data[item.value]" v-if="`${item.name}`=='Boolean'" :label="`${item.value}`" dark flat disable solo></v-text-field>
-          <v-textarea v-model="form.form_data[item.value]" v-if="`${item.name}`==='String'" :label="`${item.value}`" dark flat disable solo></v-textarea>
+          <v-text-field v-model="form.form_data[item.value]" v-if="`${item.name}`=='Text'" :label="`${item.value}`" dark flat solo></v-text-field>
+          <v-text-field v-model="form.form_data[item.value]" v-if="`${item.name}`=='Number'" :label="`${item.value}`" dark flat solo></v-text-field>
+          <v-text-field v-model="form.form_data[item.value]" v-if="`${item.name}`=='Boolean'" :label="`${item.value}`" dark flat solo></v-text-field>
+          <v-textarea v-model="form.form_data[item.value]" v-if="`${item.name}`==='String'" :label="`${item.value}`" dark flat solo></v-textarea>
           <file-pond v-model="form.form_data[item.value]" v-if="`${item.name}`==='Image'" name="test" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" server="/api" v-on:init="handleFilePondInit" />
         </v-flex>
       </v-layout>

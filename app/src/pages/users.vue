@@ -53,6 +53,33 @@
         </div>
       </v-container>
     </v-content>
+    <v-dialog v-model="dialog" width="600" class="diloag">
+      <v-container>
+        <v-layout row wrap>
+          <v-flex class="item-col" xs6>
+              <v-text-field v-model="userModel.name" label="Name" dark flat solo></v-text-field>
+          </v-flex>
+          <v-flex class="item-col" xs6>
+              <v-text-field v-model="userModel.email" label="Email" dark flat solo></v-text-field>
+          </v-flex>
+          <v-flex class="item-col" xs6>
+              <v-text-field v-model="userModel.password" label="Password" dark flat solo></v-text-field>
+          </v-flex>
+          <v-flex class="item-col" xs6>
+              <v-text-field v-model="userModel.number" label="Number" dark flat solo></v-text-field>
+          </v-flex>
+          <v-flex class="item-col" xs6>
+              <v-select v-model="userModel.role" :items="options" label="Solo field" solo></v-select>
+          </v-flex>
+
+        </v-layout>
+        <v-layout>
+          <v-btn @click="dialog = false" color="error">Cancel</v-btn>
+          <v-btn class="white--text" :loading="loading" :disabled="loading"
+          @click.prevent="$_emitdata" @click.native="loader = 'loading'" color="success">Create</v-btn>
+        </v-layout>
+      </v-container>
+    </v-dialog>
   </div>
 </template>
 
@@ -66,15 +93,43 @@ export default {
   },
   data(){
     return{
+      dialog:false,
       page: 1,
+      loader: null,
+      loading: false,
       currentPage: 1,
       itemsPerPage: 8,
       resultCount: 0,
       maxVisibleButtons: 4,
+      options:[
+      'Admin (SuperUser)',
+      'Write & Update',
+      'Read Only'
+      ],
+      userModel:{
+        name:'',
+        email:'',
+        password:'',
+        number:'',
+        role:''
+      }
     }
   },
+  watch: {
+  loader () {
+    const l = this.loader
+    this[l] = !this[l]
+
+    setTimeout(() => (this[l] = false), 3000)
+
+    this.loader = null
+  }
+},
     methods:{
       ...mapActions('users', ['get_All']),
+      $_emitdata(){
+
+      }
   },
   mounted(){
     this.get_All()
@@ -132,6 +187,9 @@ export default {
 </script>
 
 <style lang="css">
+.v-dialog{
+  background: white !important
+}
 .create-btn{
   margin: 16px;
   float: right;
@@ -149,4 +207,44 @@ export default {
   width: 5px !important;
   text-overflow: ellipsis !important;
 }
+.item-col{
+  padding: 12px;
+}
+.custom-loader {
+   animation: loader 1s infinite;
+   display: flex;
+ }
+ @-moz-keyframes loader {
+   from {
+     transform: rotate(0);
+   }
+   to {
+     transform: rotate(360deg);
+   }
+ }
+ @-webkit-keyframes loader {
+   from {
+     transform: rotate(0);
+   }
+   to {
+     transform: rotate(360deg);
+   }
+ }
+ @-o-keyframes loader {
+   from {
+     transform: rotate(0);
+   }
+   to {
+     transform: rotate(360deg);
+   }
+ }
+ @keyframes loader {
+   from {
+     transform: rotate(0);
+   }
+   to {
+     transform: rotate(360deg);
+   }
+ }
+
 </style>
