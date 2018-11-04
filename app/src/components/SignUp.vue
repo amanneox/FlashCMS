@@ -38,7 +38,8 @@ export default {
     name: '',
     number: '',
     email: '',
-    password: ''
+    password: '',
+    role:'0700'
   },
   loader: null,
   loading: false,
@@ -130,6 +131,7 @@ watch: {
 .signup{
   text-transform: capitalize;
   float: right;
+  color: #000;
 }
 a{
   text-decoration: none !important;

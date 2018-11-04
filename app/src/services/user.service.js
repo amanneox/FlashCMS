@@ -12,6 +12,7 @@ export const userService = {
   get_All,
   getById,
   update,
+  createUsers,
   delete: _delete
 }
 
@@ -73,6 +74,7 @@ async function register (user) {
     number:user.number,
     email: user.email,
     password: user.password,
+    role: user.role,
     username: user.email.split('@')[0]
   }
   const requestOptions = {
@@ -94,7 +96,33 @@ async function register (user) {
 
 }
 
+async function createUsers (user) {
+  const payload = {
+    name:user.name,
+    number:user.number,
+    email: user.email,
+    password: user.password,
+    role: user.role,
+    username: user.email.split('@')[0]
+  }
+  const requestOptions = {
+    headers: {
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin" : "*",
+      "Access-Control-Allow-Credentials" : true
+   },
+   ...payload
+  }
+  console.log(requestOptions)
+  try {
+      const res = await axios.post(`${config.apiUrl}/user`,requestOptions)
+      console.log(res.data,'@@@')
+      return res.data
+  } catch (error) {
+    return Promise.reject(error)
+  }
 
+}
 async function getById (id) {
   const requestOptions = {
     headers: {

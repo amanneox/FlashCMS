@@ -11,15 +11,15 @@
               </v-btn>
             </v-flex>
           </v-layout>
-          <v-layout row wrap>
+          <v-layout class="header-row" row wrap>
             <v-flex xs4 md3>
-              <span class="subheading">User&nbsp;Name</span>
+              <span class="subheading font-weight-bold">User&nbsp;Name</span>
             </v-flex>
             <v-flex xs4 md3>
-              <span class="subheading text-xs-left">User&nbsp;Email</span>
+              <span class="subheading text-xs-left font-weight-bold">User&nbsp;Email</span>
             </v-flex>
             <v-flex xs4 md3>
-              <span class="subheading">User&nbsp;Role</span>
+              <span class="subheading font-weight-bold">User&nbsp;Role</span>
             </v-flex>
           </v-layout>
           <v-layout v-for="user in pages" :key="user._id" row wrap>
@@ -30,7 +30,7 @@
               <div class="email-div">{{user.email}}</div>
             </v-flex>
             <v-flex class="role-div" xs4 md3>
-              <span>{{user.name}}</span>
+              <span>{{user.role}}</span>
             </v-flex>
             <v-flex xs12 md3>
               <v-layout row wrap>
@@ -57,19 +57,33 @@
       <v-container>
         <v-layout row wrap>
           <v-flex class="item-col" xs6>
-              <v-text-field v-model="userModel.name" label="Name" dark flat solo></v-text-field>
+              <v-text-field v-model="userModel.name" v-validate="'required'" name="name" label="Name" dark flat solo></v-text-field>
+                <span>{{errors.first('name')}}</span>
           </v-flex>
           <v-flex class="item-col" xs6>
-              <v-text-field v-model="userModel.email" label="Email" dark flat solo></v-text-field>
+              <v-text-field v-model="userModel.email" v-validate="'required|email'" clearable name="email" label="Email" dark flat solo></v-text-field>
+                <span>{{ errors.first('email') }}</span>
           </v-flex>
           <v-flex class="item-col" xs6>
-              <v-text-field v-model="userModel.password" label="Password" dark flat solo></v-text-field>
+              <v-text-field v-model="userModel.password" v-validate="'required'" type="password" clearable name="password" label="Password" dark flat solo></v-text-field>
+                <span>{{ errors.first('password') }}</span>
           </v-flex>
           <v-flex class="item-col" xs6>
-              <v-text-field v-model="userModel.number" label="Number" dark flat solo></v-text-field>
+              <v-text-field v-model="userModel.number" v-validate="'required|digits:10'" clearable name="number" label="Number" dark flat solo></v-text-field>
+              <span>{{errors.first('number')}}</span>
           </v-flex>
           <v-flex class="item-col" xs6>
-              <v-select v-model="userModel.role" :items="options" label="Solo field" solo></v-select>
+              <v-select v-model="userModel.role" v-validate="'required'"
+               name="role"
+              :items="options"
+              item-text="name"
+              item-value="value"
+              :hint="`${userModel.role.name}, ${userModel.role.value}`"
+              label="Select" solo
+              persistent-hint
+              return-object
+              single-line></v-select>
+              <span>{{errors.first('role')}}</span>
           </v-flex>
 
         </v-layout>
@@ -102,16 +116,16 @@ export default {
       resultCount: 0,
       maxVisibleButtons: 4,
       options:[
-      'Admin (SuperUser)',
-      'Write & Update',
-      'Read Only'
+      {name:'Admin (SuperUser)',value:'0700'},
+      {name:'Write & Read',value:'0600'},
+      {name:'Read Only',value:'0400'},
       ],
       userModel:{
         name:'',
         email:'',
         password:'',
         number:'',
-        role:''
+        role:{name:'Read Only',value:'0400'},
       }
     }
   },
@@ -127,8 +141,23 @@ export default {
 },
     methods:{
       ...mapActions('users', ['get_All']),
+      ...mapActions('account', ['createUsers']),
       $_emitdata(){
-
+        const user = {
+          name:this.userModel.name,
+          number:this.userModel.number,
+          email:this.userModel.email,
+          password:this.userModel.password,
+          role:this.userModel.role.value,
+        }
+        this.$validator.validateAll()
+          if (this.errors.any()) {
+            return
+          }
+          else {
+             this.createUsers(user)
+             //console.log(user)
+          }
       }
   },
   mounted(){
@@ -187,6 +216,9 @@ export default {
 </script>
 
 <style lang="css">
+.header-row{
+  margin-bottom: 16px;
+}
 .v-dialog{
   background: white !important
 }
@@ -213,6 +245,16 @@ export default {
 .custom-loader {
    animation: loader 1s infinite;
    display: flex;
+ }
+ .v-text-field__slot,.v-input__slot,textarea{
+ background-color: #E0E0E0 !important;
+ color: black !important;
+ }
+ input{
+   color: black !important;
+ }
+ label{
+   color: #757575 !important;
  }
  @-moz-keyframes loader {
    from {

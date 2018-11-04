@@ -31,6 +31,9 @@ const model = mongoose.model('User', {
     type:String,
     required:true
   },
+  role:{
+    type:Number
+  },
   salt:{
     type:String,
     required:true

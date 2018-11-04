@@ -115,6 +115,7 @@ module.exports.createUser = (event, context, callback) => {
     email: data.email,
     number: data.number,
     username: data.username,
+    role: data.role,
     password: hashkey.passwordHash,
     salt: hashkey.salt
   })

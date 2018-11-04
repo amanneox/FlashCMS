@@ -48,6 +48,21 @@ const actions = {
           dispatch('alert/error', error, { root: true })
         }
       )
+  },
+  createUsers ({ dispatch, commit }, user) {
+    userService.createUsers(user)
+      .then(
+        user => {
+          setTimeout(() => {
+            // display success message after route change completes
+            dispatch('alert/success', 'Creation successful', { root: true })
+          })
+        },
+        error => {
+          commit('registerFailure', error)
+          dispatch('alert/error', error, { root: true })
+        }
+      )
   }
 }
 
