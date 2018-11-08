@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import { itemService } from '../services'
 
 const state = {
@@ -78,7 +79,8 @@ const mutations = {
     state.request = { loading: true }
   },
   get_AllSuccess (state, item) {
-    state.items = { item }
+    state.items = { item },
+    state.request = { loading: false }
   },
   getByIdSuccess (state, data) {
     state.current = {data}

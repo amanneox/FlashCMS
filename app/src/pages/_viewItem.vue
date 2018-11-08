@@ -4,6 +4,9 @@
   <v-content>
     <v-container>
       <v-card>
+        <div v-if="item.request.loading" class="text-xs-center loading-icon">
+          <v-progress-circular indeterminate color="primary"></v-progress-circular>
+        </div>
         <v-layout class="main-content" row wrap>
           <v-flex xs12>
             <v-btn @click.prevent="clear()" @click="dialog = true" class="plus-icon" dark color="accent">

@@ -22,6 +22,9 @@
               <span class="subheading font-weight-bold">User&nbsp;Role</span>
             </v-flex>
           </v-layout>
+          <div v-if="users.all.loading" class="text-xs-center loading-icon">
+            <v-progress-circular indeterminate color="primary"></v-progress-circular>
+          </div>
           <v-layout v-for="user in pages" :key="user._id" row wrap>
             <v-flex class="name-div" xs4 md3>
               <span>{{user.name}}</span>
@@ -255,6 +258,9 @@ export default {
  }
  label{
    color: #757575 !important;
+ }
+ .loading-icon{
+   margin-bottom: 22px;
  }
  @-moz-keyframes loader {
    from {
