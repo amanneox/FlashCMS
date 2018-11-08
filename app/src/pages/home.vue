@@ -12,10 +12,31 @@
         <span  v-if="`${account.user.role}`== 400">(Read Only)</span>
       </v-layout>
       <v-layout row wrap>
-        <v-flex xs6 md4 v-for="(index,i) in 4">
-          <v-card :class="`item-card color-${i}`">
+        <v-flex xs6 md4>
+          <v-card class="item-card color-0">
             <v-container>
-              {{i}}
+              <span class="white--text title">{{content.items.content.length}}&nbsp;Content Types</span>
+            </v-container>
+          </v-card>
+        </v-flex>
+        <v-flex xs6 md4>
+          <v-card class="item-card color-1">
+            <v-container>
+              <span class="white--text title">{{item.items.item.length}}&nbsp;Content Items</span>
+            </v-container>
+          </v-card>
+        </v-flex>
+        <v-flex xs6 md4>
+          <v-card class="item-card color-2">
+            <v-container>
+                <span class="white--text title">{{users.all.items.length}}&nbsp;Users</span>
+            </v-container>
+          </v-card>
+        </v-flex>
+        <v-flex xs6 md4>
+          <v-card class="item-card color-3">
+            <v-container>
+              <span class="white--text title">{{ Object.keys(field.field).length}}&nbsp;Fields</span>
             </v-container>
           </v-card>
         </v-flex>
@@ -40,8 +61,21 @@ export default {
       this.$router.push('/login')
     }
 },
+methods:{
+    ...mapActions('users', ['get_All']),
+   ...mapActions('content', ['get_All']),
+   ...mapActions('item', ['get_All']),
+    ...mapActions('field', ['get_All']),
+},
 computed: {
-  ...mapState({account: 'account', status: ['status'], user: ['user']})
+  ...mapState({account: 'account', status: ['status'], user: ['user']}),
+  ...mapState({users: 'users'}),
+  ...mapState({content: 'content'}),
+  ...mapState({item: 'item'}),
+  ...mapState({field: 'field'}),
+},
+mounted(){
+    this.get_All()
 }
 }
 </script>

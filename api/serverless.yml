@@ -80,6 +80,14 @@ functions:
           method: get
           cors: true
 
+  getAllItem:
+    handler: handlers/ItemHandler.getItem
+    events:
+      - http:
+          path: item/list
+          method: get
+          cors: true
+
   getItems:
     handler: handlers/ItemHandler.getItems
     events:
@@ -120,6 +128,14 @@ functions:
            method: post
            cors: true
 
+  getAllField:
+    handler: handlers/FieldHandler.getField
+    events:
+      - http:
+          path: field/list
+          method: get
+          cors: true
+          
   getFields:
     handler: handlers/FieldHandler.getFields
     events:

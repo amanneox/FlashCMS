@@ -7,6 +7,17 @@ const state = {
 }
 
 const actions = {
+  get_All ({ commit }) {
+    commit('get_AllRequest')
+
+    fieldService.get_All()
+      .then(
+        content => {
+          commit('get_AllSuccess', content)
+        },
+        error => commit('get_AllFailure', error)
+      )
+  },
   getFields ({ commit }, payload) {
     commit('get_AllRequest')
 
