@@ -56,6 +56,12 @@ export default {
   components:{
     layoutheader
   },
+  created(){
+    const user =  localStorage.getItem('user')
+    if (JSON.parse(user).role === 400) {
+      this.$router.push('/forbidden')
+    }
+  },
   data () {
      return {
        dialog: false,

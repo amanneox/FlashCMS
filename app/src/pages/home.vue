@@ -4,11 +4,11 @@
     <v-content>
       <v-container>
         <v-layout row wrap>
-         <span class="title text-capitalize user-name">Welcome, {{account.user.name}}</span>
+         <span class="title text-capitalize">Welcome, {{account.user.name}}</span>
         </v-layout>
       <v-layout row wrap>
         <span  v-if="`${account.user.role}`== 700">(Admin User)</span>
-        <span  v-if="`${account.user.role}`=== 600">(Write & Read)</span>
+        <span  v-if="`${account.user.role}`== 600">(Write & Read)</span>
         <span  v-if="`${account.user.role}`== 400">(Read Only)</span>
       </v-layout>
       <v-layout row wrap>

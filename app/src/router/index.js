@@ -11,6 +11,7 @@ import _Content from '@/pages/_content'
 import _ViewItem from '@/pages/_viewItem'
 import Settings from '@/pages/settings'
 import Users from '@/pages/users'
+import Forbidden from '@/pages/forbidden'
 Vue.use(Router)
 
 export default new Router({
@@ -39,6 +40,11 @@ export default new Router({
       path: '/settings',
       name: 'Settings',
       component: Settings
+    },
+    {
+      path: '/forbidden',
+      name: 'Forbidden',
+      component: Forbidden
     },
     {
       path: '/users',

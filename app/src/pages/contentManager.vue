@@ -14,7 +14,10 @@
               <v-layout>
                 <p>{{i._id}}</p>
               </v-layout>
-              <v-btn :to="`manage/${i._id}`" icon class="edit-icon" small fab dark color="accent">
+              <v-btn v-if="user !== 400" :to="`manage/${i._id}`" icon class="edit-icon" small fab dark color="accent">
+               <v-icon dark>edit</v-icon>
+              </v-btn>
+              <v-btn v-if="user === 400" :to="`manage/${i._id}`" disabled icon class="edit-icon" small fab dark color="accent">
                <v-icon dark>edit</v-icon>
               </v-btn>
             </v-container>
@@ -40,6 +43,7 @@ export default {
   },
   data () {
     return {
+       user:'',
        page: 1,
        currentPage: 1,
        itemsPerPage: 4,
@@ -52,6 +56,7 @@ export default {
 },
   mounted(){
     this.get_All()
+    this.user =  JSON.parse(localStorage.getItem('user')).role
   },
 
   computed:{
