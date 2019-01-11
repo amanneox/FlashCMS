@@ -45,8 +45,11 @@
           <v-text-field v-model="form.form_data[item.value]" v-if="`${item.name}`=='Number'" :label="`${item.value}`" dark flat solo></v-text-field>
           <v-text-field v-model="form.form_data[item.value]" v-if="`${item.name}`=='Boolean'" :label="`${item.value}`" dark flat solo></v-text-field>
           <v-textarea v-model="form.form_data[item.value]" v-if="`${item.name}`==='String'" :label="`${item.value}`" dark flat solo></v-textarea>
-          <file-pond v-model="form.form_data[item.value]" v-if="`${item.name}`==='Image'" name="test" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" server="/api" v-on:init="handleFilePondInit" />
+          <form v-if="`${item.name}`==='Image'" ref="myFileInputForm">
+           <input id="fileupload" type="file" multiple @change="$_uploadImage" ref="fileInput" />
+          </form>
         </v-flex>
+        <span class="text-xs-right">{{item.msg}}</span>
       </v-layout>
       <v-layout>
         <v-btn @click="dialog = false" color="error">Cancel</v-btn>
@@ -76,8 +79,10 @@ export default {
        resultCount: 0,
        maxVisibleButtons: 4,
        form:{
-         form_data:[]
-       }
+         form_data:[],
+         images:[]
+       },
+       file:''
     }
   },
   watch: {
@@ -92,28 +97,32 @@ export default {
 },
   methods:{
       ...mapActions('field', ['createField','getFields']),
-      ...mapActions('item', ['createItem','getItems','update','_delete']),
-      handleFilePondInit: function() {
-         console.log('FilePond has initialized')
+      ...mapActions('item', ['createItem','getItems','update','_delete','uploadImage']),
+
+       $_uploadImage(event){
+
+         const res = this.uploadImage(event.target.files[0])
+         this.form.images.push(this.item.url)
        },
        $_emitdata(){
-      //   console.log(this.form.form_data)
+
+         this.form.form_data.images = this.form.images
+    //     console.log(this.form)
           if (this.form.itemID) {
-            const item = {
+              const item = {
               id:this.form.itemID,
               data:this.form.form_data
             }
             this.update(item)
           }
           else {
-            const item = {
+              const item = {
               id:this.$route.params.id,
               data:this.form.form_data
             }
+        //    console.log(item)
             this.createItem(item)
-
           }
-
        },
        $_update(item){
          this.form.form_data = item.data
@@ -236,6 +245,10 @@ export default {
  .custom-loader {
     animation: loader 1s infinite;
     display: flex;
+  }
+
+  .upload-btn{
+    float: right;
   }
   @-moz-keyframes loader {
     from {

@@ -59,6 +59,8 @@ module.exports.createItem= (event, context, callback) => {
     ))
   }
 
+
+
   module.exports.deleteItem= (event, context, callback) => {
     if (!validator.isAlphanumeric(event.pathParameters.id)) {
       callback(null, createErrorResponse(400, 'Incorrect id'))

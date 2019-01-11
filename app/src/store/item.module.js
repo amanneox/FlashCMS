@@ -4,7 +4,9 @@ import { itemService } from '../services'
 const state = {
   item: {},
   request: {},
-  current: {}
+  current: {},
+  msg:'',
+  url:''
 }
 
 const actions = {
@@ -39,6 +41,16 @@ const actions = {
         error => commit('get_AllFailure', error)
       )
   },
+  uploadImage ({commit}, payload) {
+    itemService.uploadImage(payload)
+      .then(
+        res => {
+          commit('Inserturl', res)
+        },
+        error => commit('createFailure', error)
+      )
+  },
+
   createItem ({commit}, payload) {
     commit('createRequest')
     itemService.createItem(payload)
@@ -70,10 +82,16 @@ const mutations = {
     state.request = { loading: true }
   },
   createSuccess (state, msg) {
-    state.request = { request: msg }
+    state.msg = msg
+  },
+  uploadSuccess (state, msg){
+    state.msg = msg
+  },
+  Inserturl (state, url){
+    state.url = url
   },
   createFailure (state, error) {
-    state.request = { error }
+    state.msg = error
   },
   get_AllRequest (state) {
     state.request = { loading: true }

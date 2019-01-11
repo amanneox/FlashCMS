@@ -15,28 +15,32 @@
         <v-flex xs6 md4>
           <v-card class="item-card color-0">
             <v-container>
-              <span class="white--text title">{{content.items.content.length}}&nbsp;Content Types</span>
+              <span v-if="content.items.content" class="white--text title">{{content.items.content.length}}&nbsp;Content Types</span>
+                <span v-else class="white--text title" >0&nbsp;Content Types</span>
             </v-container>
           </v-card>
         </v-flex>
         <v-flex xs6 md4>
           <v-card class="item-card color-1">
             <v-container>
-              <span class="white--text title">{{item.items.item.length}}&nbsp;Content Items</span>
+              <span v-if="item.items" class="white--text title">{{item.items.item.length}}&nbsp;Content Items</span>
+              <span v-else class="white--text title" >0&nbsp;Content Items</span>
             </v-container>
           </v-card>
         </v-flex>
         <v-flex xs6 md4>
           <v-card class="item-card color-2">
             <v-container>
-                <span class="white--text title">{{users.all.items.length}}&nbsp;Users</span>
+                <span v-if="users.all.items" class="white--text title">{{users.all.items.length}}&nbsp;Users</span>
+                  <span v-else class="white--text title" >0&nbsp;Users</span>
             </v-container>
           </v-card>
         </v-flex>
         <v-flex xs6 md4>
           <v-card class="item-card color-3">
             <v-container>
-              <span class="white--text title">{{ Object.keys(field.field).length}}&nbsp;Fields</span>
+              <span v-if="Object.keys(field.field).length>0" class="white--text title">{{ Object.keys(field.field).length}}&nbsp;Fields</span>
+                <span v-else class="white--text title" >0&nbsp;Fields</span>
             </v-container>
           </v-card>
         </v-flex>
